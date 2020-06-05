@@ -1,0 +1,177 @@
+body>div {
+    margin-top: 11vh;
+    margin-bottom: 11vh;
+}
+
+/* Structure de la page d'accueil, utilisateur déconnecté */
+
+#not-logged-in-content {
+    padding: 1vh 1vw;
+}
+
+#row-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+#row-1>div {
+    margin: 15px;
+}
+
+#loginCard {
+    text-align: center;
+    padding-right: 3vw;
+    padding-left: 3vw;
+}
+
+#loginCard>h1 {
+    margin-bottom: 3vh;
+}
+
+#loginCard>form {
+    display: flex;
+    flex-direction: column;
+}
+
+#loginCard>form>input {
+    margin: 0vh 2vh 6vh 2vh;
+}
+
+#row-2 {
+    margin-top: 3vh;
+}
+
+#row-2>div {
+    margin: 15px;
+    text-align: center;
+    padding-bottom: 2.5vh;
+}
+
+#row-2 form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#row-2 form>.button {
+    width: 11vw;
+}
+
+#signinInputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 10vw;
+    padding-left: 10vw;
+    width: 75vw;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#row-2 .form-label {
+    margin-top: 3vh;
+}
+
+#row-2 .form-input {
+    margin-bottom: 5vh;
+}
+
+#row-2 form>input:last-of-type {
+    padding-right: 2vw;
+    padding-left: 2vw;
+    margin-bottom: 1.5vh;
+}
+
+/* Structure de la page d'accueil, utilisateur connecté */
+
+#logged-in-content {
+    padding: 1vh 1vw;
+}
+
+#workspace {
+    padding: 1vh 1vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 4vh 0vh 5vh 0vh;
+}
+
+#workspace>.card {
+    width: 26vw;
+}
+
+#workspace .button {
+    width: 16vw;
+    height: 2.5vw;
+    margin: 0.7vw 0vw;
+
+}
+
+#exercises, #open-promotions {
+    margin-bottom: 5vh;
+}
+
+#exercises > h1, #open-promotions > h1 {
+    text-align: center;
+}
+
+#exercises-row-1, #promotions-row-1 {
+    display: flex;
+    flex-direction: row;
+}
+
+#exercises-row-1 > a, #promotions-row-1 > a {
+    width: 12vw;
+    font-size: 13px;
+    margin: 0vw 0vw 1vh 0.5vw;
+}
+
+#exercises-row-1 > .form-input, #promotions-row-1 > .form-input {
+    flex-grow: 2;
+    width: 18vw;
+    margin-right: 20vw;
+}
+
+#exercises-row-2, #promotions-row-2 {
+    height: 50vh;
+    margin: 2.5vh 0vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: scroll;
+    padding: 1.5vh 1vw;
+}
+
+#exercises-row-2 > div, #promotions-row-2 > div {
+    margin: 1vh 0vw;
+    width: 87%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#exercises-row-2 .button {
+    width: 1.5vh;
+    height: 1.5vh;
+}
+
+#promotions-row-2 .button {
+    height: 1.5vh;
+}
+
+#exercises-row-2 p, #promotions-row-2 p {
+    flex-grow: 4;
+}
+
+
