@@ -1,0 +1,67 @@
+body>div {
+    margin: 11vh 1vw;
+}
+
+#promotion-space {
+    padding: 1vh 1.7vw;
+    margin-top: 14vh;
+    text-align: center;
+}
+
+#promotion-space .title-2 {
+    margin-top: 3vh;
+    margin-bottom: 0.3vh;
+    padding-bottom: 0vh;
+}
+
+#promotion-space > .card {
+    padding-right: 3vw;
+    padding-left: 3vw;
+    padding-bottom: 3vh;
+}
+
+#invite-link-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    height: 6.5vh;
+}
+
+#invite-link-card > input {
+    width: 30vw;
+    text-align: center;
+    margin: auto;
+    border-bottom: 1px solid #6D57F1;
+    color: #191970;
+    padding-bottom: 0.3vh;
+}
+
+#invite-link-card > .button {
+    position: absolute;
+    margin: 0px;
+    top: 1vh;
+    right: 2vw;
+    height: 5.5vh;
+    font-size: 16px;
+}
+
+#row-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2vh 0vh 2vh 0vh;
+}
+
+#row-1 > * {
+    flex: 1;
+}
+
+#row-1 > .button:first-child {
+    margin-right: 2vh;
+}
+
+#row-2 > .button {
+    width: 100%;
+    margin-bottom: 2vh;
+}

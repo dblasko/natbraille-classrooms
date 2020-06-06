@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <link href="promo.css" rel="stylesheet">
+    <title>Espace de la promotion [nom]</title>
+</head>
+
+<body>
+<header>
+    <img src="logo.png" alt="Logo de l'association NatBraille.">
+    <a href="accueil.html" class="headerLink">Mon espace de travail</a>
+    <div class="header-right">
+        <a href="#signin" class="headerLink">Mon compte</a>
+        <a href="#login" class="headerLink" onclick="simulateLogin(event)">Me déconnecter</a>
+    </div>
+</header>
+
+<div class="card" id="promotion-space">
+    <h1 class="title-1">Espace de la promotion [NOM]</h1>
+    <div class="card">
+        <h2 class="title-2">Lien d'invitation</h2>
+        <p class="helper-text">
+            Afin d’inviter des membres dans cette promotion, veuillez leur communiquer le lien suivant. <br/> Pour des raisons de sécurité, un enseignant peut décider de changer le lien, ce qui rendra le précédent invalide.<br/> Une promotion ouverte peut aussi être rejointe sans lien par n’importe quel utilisateur depuis son espace de travail.
+        </p>
+        <div class="card" id="invite-link-card">
+            <label for="invite-link" class="accessibility-label">Lien d'invitation de la promotion :</label>
+            <input readonly value="https://lien-invitation.fr/q2cb2a" type="text" name="invite-link" id="invite-link" class="form-input"/>
+            <button class="button">Changer de lien</button>
+        </div>
+    </div>
+    <div id="row-1">
+        <button id="t1" class="button">Affecter un ou des exercice(s) à la promotion</button>
+        <button class="button">Changer le nom ou la visibilité de la promotion</button>
+    </div>
+    <div id="row-2">
+        <button class="button">Quitter la promotion</button>
+    </div>
+</div>
+
+<footer>
+    <img src="logo.png" alt="Logo de l'association NatBraille." />
+    <p>NATBRAILLE ASSOCIATION - 2020</p>
+</footer>
+</body>
+
+</html>

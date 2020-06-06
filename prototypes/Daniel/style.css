@@ -125,7 +125,7 @@ header img {
 }
 
 
-.link {
+.link, .helper-text {
     font-style: italic;
     font-size: 12px;
     color: #6D57F1;
