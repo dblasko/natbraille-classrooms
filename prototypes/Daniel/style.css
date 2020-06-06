@@ -41,6 +41,7 @@ header {
     font-size: 28px;
     font-family: 'Bebas Neue',
         cursive;
+    z-index: 999;
 }
 
 header img {
@@ -156,6 +157,26 @@ header img {
     text-align: center;
     font-style: italic;
 }
+
+.select select{
+    background: transparent;
+    font-size: 16px;
+}
+
+.select {
+    font-family: 'Bebas Neue', cursive;
+    text-align: center;
+    border: 0px solid black;
+    overflow: hidden;
+    color: white;
+    background: #191970;
+}
+
+.select:disabled {
+    color: white;
+    background: #55556d;
+}
+
 
 .form-input:focus {
     border-bottom: 1px solid #6D57F1;

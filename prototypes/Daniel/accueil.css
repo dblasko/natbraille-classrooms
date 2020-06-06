@@ -168,6 +168,11 @@ body>div {
 
 #promotions-row-2 .button {
     height: 1.5vh;
+    /*
+    font-size: 16px;
+    width: auto;
+    height: 30%;
+     */
 }
 
 #exercises-row-2 p, #promotions-row-2 p {
