@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="CSS/style.css" rel="stylesheet">
+    {% block additional_stylesheets_and_scripts %}
+
+    {% endblock %}
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+
+</head>
+
+<body>
+    {{ include('templates/header.html.twig') }}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {{ include('templates/footer.html.twig') }}
+</body>
+
+</html>
+
