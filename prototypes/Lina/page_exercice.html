@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>NatBraille</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="css/page_exercice.css">
+
+</head>
+<header>
+    <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
+    <a href="accueil.html" class="headerLink">Accueil</a>
+    <div class="header-right">
+        <a href="#signin" class="headerLink">S'inscrire</a>
+        <a href="#login" class="headerLink" onclick="simulateLogin(event)">Se connecter</a>
+    </div>
+</header>
+
+<body>
+    <div id="contenu">
+        
+        <div id="texte">
+            <div class="contour">
+                    <h2>ÉNONCÉ</h2>
+            </div>
+            
+            <label for="enonce" class="legende">Enoncé</label><textarea name="story" id="enonce"
+            rows="30" cols="55">Ecrire le texte ...
+            </textarea>
+        </div>
+
+        <div id="correction">
+            <div class="contour">
+                <h2>CORRECTION</h2>
+            </div>
+            
+           <label for="correction_text" class="legende">Correction</label><textarea name="story" id="correction_text"
+            rows="30" cols="55">Ecrire la correction ...
+            </textarea>
+        </div>      
+    </div>
+
+
+    <div id="options">
+        <button class="option">EFFACER LE TEXTE</a></button>
+        <button class="option">COMMENTER LA CORRECTION</button>
+        <button class="option">GÉNÉRER LA CORRECTION</button>
+        <button class="option">SAUVEGARDER</button>
+    </div>
+    
+</body>
+<footer>
+    <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
+    <p>NATBRAILLE ASSOCIATION - 2020</p>
+    
+</footer>
+</html>
