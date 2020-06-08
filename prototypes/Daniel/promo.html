@@ -100,7 +100,9 @@
         <div class="card" id="members-row-2">
             <div class="card">
                 <p>Lina Zouiri</p>
-                <select class="select" disabled>
+                <!-- TODO : dans twig, le for du label, son contenu et l'id du select dépendra du membre, dynamiquement -->
+                <label class="accessibility-label" for="role-lina">Rôle du membre Lina de la promotion :</label>
+                <select id="role-lina" class="select" disabled>
                     <!-- disabled (si apprenant sur la page) -->
                     <option value="teacher">Enseignant</option>
                     <option selected value="student">Apprenant</option>
@@ -109,7 +111,8 @@
             </div>
             <div class="card">
                 <p>Bruno Mascret</p>
-                <select class="select">
+                <label class="accessibility-label" for="role-bruno">Rôle du membre Bruno de la promotion :</label>
+                <select id="role-bruno" class="select">
                     <option selected value="teacher">Enseignant</option>
                     <option value="student">Apprenant</option>
                 </select>
@@ -117,7 +120,8 @@
             </div>
             <div class="card">
                 <p>Daniel Blasko</p>
-                <select class="select">
+                <label class="accessibility-label" for="role-daniel">Rôle du membre Daniel de la promotion :</label>
+                <select id="role-daniel" class="select">
                     <option value="teacher">Enseignant</option>
                     <option selected value="student">Apprenant</option>
                 </select>
@@ -125,7 +129,8 @@
             </div>
             <div class="card">
                 <p>Jean Dupont</p>
-                <select class="select">
+                <label class="accessibility-label" for="role-jean1">Rôle du membre Jean1 de la promotion :</label>
+                <select id="role-jean1" class="select">
                     <option selected value="teacher">Enseignant</option>
                     <option value="student">Apprenant</option>
                 </select>
@@ -133,7 +138,8 @@
             </div>
             <div class="card">
                 <p>Jean Dupont</p>
-                <select class="select">
+                <label class="accessibility-label" for="role-jean2">Rôle du membre Jean2 de la promotion :</label>
+                <select id="role-jean2" class="select">
                     <option value="teacher">Enseignant</option>
                     <option selected value="student">Apprenant</option>
                 </select>
@@ -141,14 +147,14 @@
             </div>
             <div class="card">
                 <p>Jean Dupont</p>
-                <select class="select">
+                <label class="accessibility-label" for="role-jean3">Rôle du membre Jean3 de la promotion :</label>
+                <select id="role-jean3" class="select">
                     <option value="teacher">Enseignant</option>
                     <option selected value="student">Apprenant</option>
                 </select>
                 <a class="button">Renvoyer de la promotion</a>
             </div>
         </div>
-    </div>
     </div>
 
     <footer>
