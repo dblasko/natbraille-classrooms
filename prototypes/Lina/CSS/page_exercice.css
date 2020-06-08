@@ -43,7 +43,7 @@ textarea {
 .option:hover {
     background-color: #191971;
 }
-.contour, h2{
+.contour, h1{
     border: #000 solid 1px;
     padding-left: 10%;
     padding-right: 10%;
@@ -51,7 +51,7 @@ textarea {
     padding-bottom: 1%;
     
 }
-h2{
+h1{
     font-weight: normal;
 }
 

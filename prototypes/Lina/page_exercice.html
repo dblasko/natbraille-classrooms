@@ -12,21 +12,21 @@
   <link rel="stylesheet" href="css/style.css">
 
 </head>
-<header>
-    <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
-    <a href="accueil.html" class="headerLink">Accueil</a>
-    <div class="header-right">
-        <a href="#signin" class="headerLink">S'inscrire</a>
-        <a href="#login" class="headerLink" onclick="simulateLogin(event)">Se connecter</a>
-    </div>
-</header>
 
 <body>
+    <header>
+        <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
+        <a href="accueil.html" class="headerLink">Accueil</a>
+        <div class="header-right">
+            <a href="#signin" class="headerLink">S'inscrire</a>
+            <a href="#login" class="headerLink" onclick="simulateLogin(event)">Se connecter</a>
+        </div>
+    </header>
     <div id="contenu">
         
         <div id="texte">
             <div class="contour">
-                    <h2>ÉNONCÉ</h2>
+                    <h1>ÉNONCÉ</h1>
             </div>
             
             <label for="enonce" class="legende">Enoncé</label><textarea name="story" id="enonce"
@@ -36,7 +36,7 @@
 
         <div id="correction">
             <div class="contour">
-                <h2>CORRECTION</h2>
+                <h1>CORRECTION</h1>
             </div>
             
            <label for="correction_text" class="legende">Correction</label><textarea name="story" id="correction_text"
@@ -47,16 +47,17 @@
 
 
     <div id="options">
-        <button class="option">EFFACER LE TEXTE</a></button>
+        <button class="option">EFFACER LE TEXTE</button>
         <button class="option">COMMENTER LA CORRECTION</button>
         <button class="option">GÉNÉRER LA CORRECTION</button>
         <button class="option">SAUVEGARDER</button>
     </div>
+    <footer>
+        <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
+        <p>NATBRAILLE ASSOCIATION - 2020</p>
+        
+    </footer>
     
 </body>
-<footer>
-    <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
-    <p>NATBRAILLE ASSOCIATION - 2020</p>
-    
-</footer>
+
 </html>
