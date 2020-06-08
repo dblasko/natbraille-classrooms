@@ -3,6 +3,12 @@
 use App\Classes\UserEntity as UserEntity;
 use App\Models\UsersModel;
 
+use DateTime;
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
 class Users extends BaseController {
 
     public function index() {
@@ -10,21 +16,49 @@ class Users extends BaseController {
         $twig->display('home/logged_out_content.html', []);
     }
 
+    protected function sendConfirmationMail($mailAddr, $name) {
+        $mail = new PHPMailer(true);
+
+        $mail->AddAddress($mailAddr, $name);
+        $mail->SetFrom('no-reply@natbraille.fr', 'Natbraille Association');
+        $mail->Subject = 'Création de votre compte Natbraille Classrooms';
+        $mail->Body = 'Nous vous confirmons la création de votre compte Natbraille Classrooms.\nCelui-ci est lié au compte mail où ce courrier est reçu. Vous pouvez dès maintenant vous connecter avec votre adresse mail et votre mot de passe.\nBienvenue sur Natbraille Classrooms !';
+
+        try{
+            $mail->Send();
+        } catch(Exception $e){
+            echo 'Mail sending failed.';
+        }
+
+    }
+
+    protected function convertDate($date) {
+        /*
+         * Returns false if the date can't be parsed, else a date that can be saved in MySQL
+         */
+        $convert =  DateTime::createFromFormat('d-m-Y', $this->request->getVar('signinDate'));
+        return ($convert !== false)? $convert->format('Y-m-d'): false;
+    }
+
     public function signIn() {
         $userToInsert = new UserEntity( // automatically hashes the pwd
-            $this->request->getVar('signinMail'),
-            $this->request->getVar('signinName'),
-            $this->request->getVar('signinFirstName'),
-            $this->request->getVar('signinDate'),
-            $this->request->getVar('signinPwd')
+            htmlspecialchars($this->request->getVar('signinMail')),
+            htmlspecialchars($this->request->getVar('signinName')),
+            htmlspecialchars($this->request->getVar('signinFirstName')),
+            htmlspecialchars($this->request->getVar('signinDate')),
+            htmlspecialchars($this->request->getVar('signinPwd'))
         );
-        $pwdConfirm = $this->request->getVar('signinPwdConfirm');
+        $pwdConfirmValue = htmlspecialchars($this->request->getVar('signinPwdConfirm'));
+        $parsedDate = $this->convertDate($userToInsert->getBirthIsoDate()); // parse & transform the date to the correct format for the DB
 
         if (empty($userToInsert->getMail()) || empty($userToInsert->getName()) || empty($userToInsert->getFirstName())
             || empty($userToInsert->getBirthIsoDate()) || empty($userToInsert->getPwd())) {
             $invalid_form_input = true;
             $msg = 'Merci de renseigner tous les champs du formulaire d\'inscription.';
-        } else if ($userToInsert->getPwd() != hash('sha512', $pwdConfirm)) {
+        } else if ($parsedDate === false) {
+            $invalid_form_input = true;
+            $msg = 'La date entrée est invalide. Merci d\'entrer une date au format jj-mm-aaaa.';
+        } else if ($userToInsert->getPwd() != hash('sha512', $pwdConfirmValue)) { // the user pwd has been hashed, note the confirm value
             $invalid_form_input = true;
             $msg = 'Le mot de passe de confirmation ne correspond pas à celui renseigné !';
         } else if (!filter_var($userToInsert->getMail(), FILTER_VALIDATE_EMAIL)) {
@@ -33,14 +67,16 @@ class Users extends BaseController {
         } else {
             $model = new UsersModel();
 
-            if ($model->getUser($userToInsert->getMail()) != null) { // mail déjà en BD
+            if ($model->getUser($userToInsert->getMail()) != null) { // mail déjà enregistré en BD
                 $invalid_form_input = true;
                 $msg = 'Un compte correspondant à l\'adresse mail renseignée existe déjà.';
-            } else {
+            } else { // inscription
+                $userToInsert->setBirthIsoDate($parsedDate); // the parsed date is correct, we can save it now
                 $model->save($userToInsert->toArray());
+                //$this->sendConfirmationMail($userToInsert->getMail(), $userToInsert->getFirstName().' '.$userToInsert->getName());
                 $invalid_form_input = false;
                 $title = 'Inscription réussie.';
-                $msg = 'Vous pouvez maintenant vous connecter avec les identifiants renseignés lors de l\'inscription.';
+                $msg = 'Un e-mail de confirmation devrait vous parvenir sous peu. Vous pouvez dès maintenant vous connecter avec les identifiants renseignés lors de l\'inscription.';
             }
         }
 
@@ -77,7 +113,7 @@ class Users extends BaseController {
             }
         }
 
-        $redirect = 'home/'. (($invalid_form_input)? 'logged_out_content.html' : 'workspace.html.twig');
+        $redirect = 'home/'. (($invalid_form_input)? 'logged_out_content.html' : 'workspace.html');
         $twig = twig_instance();
         $twig->display($redirect, [
             'sender_form' => 'de connexion',
