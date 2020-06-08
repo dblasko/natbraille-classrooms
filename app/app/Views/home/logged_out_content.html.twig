@@ -1,8 +1,8 @@
 {% extends "base.html.twig" %}
 
 {% block additional_stylesheets_and_scripts %}
-    <link href="CSS/accueil.css" rel="stylesheet">
-    <script src="Scripts/script_demo_maquette.js" defer async></script>
+    <link href="/CSS/accueil.css" rel="stylesheet">
+    <script src="/Scripts/script_demo_maquette.js" defer async></script>
 {% endblock %}
 
 {% block title %}
@@ -11,6 +11,11 @@
 
 {% block content %}
     <div id="not-logged-in-content">
+        {% if invalid_form_input %}
+            {{ include('templates/input_error_bar.html.twig') }}
+        {% elseif title %}
+            {{ include('templates/info_message_bar.html.twig') }}
+        {% endif %}
         <div id="row-1">
             <div class="card" id="loginCard">
                 <!-- Connexion -->
@@ -27,7 +32,7 @@
             </div>
             <div class="card">
                 <!-- Présentation -->
-                <h1 class="title-1">Qu'est-ce que [nom du projet] ?</h1>
+                <h1 class="title-1">Qu'est-ce que NatBraille Classrooms ?</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur vestibulum augue porta
                     maximus. Etiam leo mi,
                     posuere iaculis varius ut, dignissim ut risus. Duis risus nisl, euismod ac erat vel, sollicitudin
@@ -39,7 +44,7 @@
                     Curabitur placerat et nulla eu semper. Nulla ut auctor elit. Maecenas sit amet ante et orci iaculis
                     lobortis nec in
                     nisl. Donec placerat ultricies eros eu gravida. Suspendisse non sem nunc.</p>
-                <h2 class="title-2">Qui est concerné par [nom du projet] ?</h2>
+                <h2 class="title-2">Qui est concerné par NatBraille Classrooms ?</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur vestibulum augue porta
                     maximus. Etiam leo mi,
                     posuere iaculis varius ut, dignissim ut risus. Duis risus nisl, euismod ac erat vel, sollicitudin
@@ -51,7 +56,7 @@
                     Curabitur placerat et nulla eu semper. Nulla ut auctor elit. Maecenas sit amet ante et orci iaculis
                     lobortis nec in
                     nisl. Donec placerat ultricies eros eu gravida. Suspendisse non sem nunc.</p>
-                <h2 class="title-2">Quel est l'objectif de [nom du projet] ?</h2>
+                <h2 class="title-2">Quel est l'objectif de NatBraille Classrooms ?</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur vestibulum augue porta
                     maximus. Etiam leo mi,
                     posuere iaculis varius ut, dignissim ut risus. Duis risus nisl, euismod ac erat vel, sollicitudin
@@ -70,7 +75,7 @@
                 <!-- Inscription -->
                 <a id="signin"></a>
                 <h1 class="title-1">Inscription</h1>
-                <form method="POST" action="#">
+                <form method="POST" action="/users/signIn">
                     <div id="signinInputs">
                         <div class="col">
                             <label class="form-label" for="signinName">Nom :</label>
@@ -87,9 +92,9 @@
                         </div>
                         <div class="col">
                             <label class="form-label" for="signinPwd">Mot de passe souhaité :</label>
-                            <input class="form-input" type="text" name="signinPwd" id="signinPwd">
+                            <input class="form-input" type="password" name="signinPwd" id="signinPwd">
                             <label class="form-label" for="signinPwdConfirm">Confirmer le mot de passe :</label>
-                            <input class="form-input" type="text" name="signinPwdConfirm" id="signinPwdConfirm">
+                            <input class="form-input" type="password" name="signinPwdConfirm" id="signinPwdConfirm">
                         </div>
                     </div>
                     <input type="submit" class="button" id="signinSubmit" value="S'inscrire">

@@ -13,6 +13,8 @@
 //
 defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
 
+define('CLASSES_DIR', __DIR__ . "/../Classes/");
+
 /*
 |--------------------------------------------------------------------------
 | Composer Path

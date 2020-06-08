@@ -3,7 +3,7 @@ CREATE TABLE Users (
     name VARCHAR(20),
     firstName VARCHAR(20),
     birthIsoDate TIMESTAMP,
-    pwd VARCHAR(50) NOT NULL,
+    pwd VARCHAR(128) NOT NULL,
     isDeleted BOOLEAN DEFAULT FALSE
 );
 

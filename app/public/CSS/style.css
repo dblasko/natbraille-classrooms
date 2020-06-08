@@ -126,12 +126,17 @@ header img {
 }
 
 
-.link, .helper-text {
+.link, .helper-text, .alert-text {
     font-style: italic;
     font-size: 12px;
     color: #6D57F1;
     text-decoration: none;
     transition: 0.3s;
+}
+
+.alert-text {
+    font-size: 13px;
+    color: red;
 }
 
 .link:hover {
@@ -208,4 +213,13 @@ select {
 
 .accessibility-label {
     display: none;
+}
+
+#input-error-bar, #info-message-bar {
+    margin: 2vh 1vw 0.5vh 1vw;
+    padding: 1.5vh 2vw 2.5vh 2vw;
+}
+
+.error {
+    color: red;
 }
