@@ -13,7 +13,7 @@ class Users extends BaseController {
 
     public function index() {
         $twig = twig_instance();
-        $twig->display('home/logged_out_content.html', []);
+        $twig->display('home/logged_out_content.html', ['session' => session()]);
     }
 
     protected function sendConfirmationMail($mailAddr, $name) {
@@ -86,6 +86,7 @@ class Users extends BaseController {
             'invalid_form_input' => $invalid_form_input,
             'title' => isset($title)? $title : null,
             'msg' => isset($msg)? $msg : '',
+            'session' => session(),
         ]);
     }
 
@@ -110,6 +111,7 @@ class Users extends BaseController {
             } else { // connecté
                 $invalid_form_input = false;
                 // TODO : variables de session etc° ici
+                session()->set('loggedIn', true);
             }
         }
 
@@ -119,6 +121,7 @@ class Users extends BaseController {
             'sender_form' => 'de connexion',
             'invalid_form_input' => $invalid_form_input,
             'msg' => isset($msg)? $msg : null,
+            'session' => session(),
         ]);
     }
 }

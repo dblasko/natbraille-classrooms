@@ -1,8 +1,19 @@
 <header>
     <img src="/assets/logo.png" alt="Logo de l'association NatBraille.">
-    <a href="/" class="headerLink">Accueil</a> <!-- TODO : change the buttons if the user is logged in! & the href -->
+    <a href="/" class="headerLink">
+        {% if session.loggedIn %}
+            Espace de travail
+        {% else %}
+            Accueil
+        {% endif %}
+    </a>
     <div class="header-right">
-        <a href="#signin" class="headerLink">S'inscrire</a>
-        <a href="#login" class="headerLink" onclick="simulateLogin(event)">Se connecter</a>
+        {% if session.loggedIn %}
+            <a href="/#signin" class="headerLink">Mon compte</a>
+            <a href="/#login" class="headerLink" onclick="simulateLogin(event)">Me déconnecter</a>
+        {% else %}
+            <a href="/#signin" class="headerLink">S'inscrire</a>
+            <a href="/#login" class="headerLink" onclick="simulateLogin(event)">Se connecter</a>
+        {% endif %}
     </div>
 </header>
