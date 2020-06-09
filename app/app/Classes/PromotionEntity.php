@@ -5,7 +5,7 @@ namespace App\Classes {
     use App\Classes\Interfaces\ExerciseAssignee;
     use App\Classes\Interfaces\ExerciseAssigner;
     use App\Classes\Interfaces\ExerciseProvider;
-
+    use App\Classes\Interfaces\ExerciseSolver;
     use App\Models\PromotionModel;
 
     class PromotionEntity implements ExerciseAssignee, ExerciseProvider {
@@ -51,7 +51,53 @@ namespace App\Classes {
             }
         }
 
+        public function getAssignedExercisesList() {
+            $exercises = [];
+            foreach ($this->exerciseAssignations as $assignation) {
+                $exercises[] = $assignation['exercise'];
+            }
+            return $exercises;
+        }
+
         /* ExerciseProvider implementations */
+
+        public function addSubmission(SolutionSubmissionEntity $ss) {
+            $exercise = $ss->getExercise();
+            foreach ($this->exerciseAssignations as $assignation) {
+                if ($assignation['exercise']->getId() === $exercise->getId()) {
+                    $assignation['submissions'][] = $ss;
+                }
+            }
+            $model = new PromotionModel();
+            $model->syncExercises($this);
+        }
+
+        public function getSolverSubmissions(ExerciseSolver $s, ExerciseEntity $e) {
+            $submissions = []; // SolutionSubmissionEntities
+            foreach($this->exerciseAssignations as $assignation) {
+                if ($assignation['exercise']->getId() === $e->getId()) {
+                    foreach($assignation['submissions'] as $submission) {
+                        if ($submission->getSolver()->getMail() === $s->getMail()) $submissions[] = $submission;
+                    }
+                }
+            }
+            return $submissions;
+        }
+
+        function getExerciseSubmissions(ExerciseEntity $e) {
+            $submissions = [];
+            foreach ($this->exerciseAssignations as $assignation) {
+                if ($assignation['exercise']->getId() === $e->getId()) {
+                    $submissions = $assignation['submissions'];
+                }
+            }
+            return $submissions;
+        } // for getExerciseSummary
+
+        public function getExerciseSummary(ExerciseEntity $e) {
+            // TODO : implement when needed and when decided on exact logic
+            // use getExerciseSubmissions as a helper
+        }
 
         /**
          * PromotionEntity constructor.

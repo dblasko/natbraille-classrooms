@@ -3,11 +3,13 @@
 namespace App\Classes {
 
     use App\Classes\Interfaces\ExerciseAssignee;
+    use App\Classes\Interfaces\ExerciseProvider;
     use App\Classes\Interfaces\Notifiable;
     use App\Classes\Interfaces\ExerciseAssigner;
+    use App\Classes\Interfaces\ExerciseSolver;
     use App\Models\NotificationsModel;
 
-    class UserEntity implements Notifiable, ExerciseAssigner
+    class UserEntity implements Notifiable, ExerciseAssigner, ExerciseSolver
     {
         private $mail;
         private $name;
@@ -68,6 +70,17 @@ namespace App\Classes {
 
         public function unassign(ExerciseEntity $e, ExerciseAssignee $a) {
             $a->removeExercise($e);
+        }
+
+        /* ExerciseSolver implementation */
+
+        public function submitSolution(SolutionSubmissionEntity $ss, ExerciseProvider $ep) {
+            $ep->addSubmission($ss);
+        }
+
+        public function getSubmissions(ExerciseEntity $e, ExerciseProvider $ep) {
+            // get the solver's (here this user) submissions for given exercise at the provider
+            return $ep->getSolverSubmissions($this, $e);
         }
 
 
