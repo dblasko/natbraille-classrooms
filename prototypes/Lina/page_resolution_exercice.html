@@ -1,0 +1,78 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>NatBraille</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="css/page_resolution_exercice.css">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+    <header>
+        <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
+        <a href="accueil.html" class="headerLink">Accueil</a>
+        <div class="header-right">
+            <a href="#signin" class="headerLink">S'inscrire</a>
+            <a href="#login" class="headerLink" onclick="simulateLogin(event)">Se connecter</a>
+        </div>
+    </header>
+
+    <h1>Résolution d'exercice</h1>
+
+    <div id="contenu">
+        
+        <!--<div class="card">-->
+            <div class="enonce">
+                <div class="contour">
+                        <h1>ÉNONCÉ</h1>
+                </div>
+                
+                <label for="enonce" class="legende">Enoncé</label><p id="enonce">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consectetur vestibulum augue porta
+                    maximus. Etiam leo mi,
+                    posuere iaculis varius ut, dignissim ut risus. Duis risus nisl, euismod ac erat vel, sollicitudin
+                    laoreet diam. Etiam ac
+                    risus id nisl egestas ultricies. Nam vel risus neque. Integer rutrum iaculis felis, quis convallis
+                    ipsum rhoncus sed.
+                    Quisque porta lectus eros, in gravida tortor accumsan non. Curabitur ac massa ut libero gravida
+                    cursus eget a massa.
+                    Curabitur placerat et nulla eu semper. Nulla ut auctor elit. Maecenas sit amet ante et orci iaculis
+                    lobortis nec in
+                    nisl. Donec placerat ultricies eros eu gravida. Suspendisse non sem nunc. </p>
+          <!--</div> -->  
+            </div>
+
+        
+            <div class="correction">
+            <div class="contour">
+                <h1>CORRECTION</h1>
+            </div>
+            
+           <label for="correction_text" class="legende">Correction</label><textarea name="story" id="correction_text"
+            rows="30" cols="55">Ecrire la correction ...
+            </textarea>
+        </div> 
+       
+    </div>
+
+    <div>
+        <p>Ajouté par [professeur]</p>
+        <p>Ajouté le [DATE]</p>
+    </div>
+    <div id="options">
+        <button class="option">Valider</button>
+    </div>
+    <footer>
+        <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
+        <p>NATBRAILLE ASSOCIATION - 2020</p>
+        
+    </footer>
+    
+</body>
+
+</html>

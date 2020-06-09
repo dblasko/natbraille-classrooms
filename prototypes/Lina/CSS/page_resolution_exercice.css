@@ -1,0 +1,79 @@
+
+/* font-family: 'Bebas Neue', cursive; */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+/* font-family: 'Roboto', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+textarea {
+    resize: none;
+    margin-top: 15%;
+
+}
+
+.option {
+    border: 0;
+    line-height: 2.5;
+    padding: 1%;
+    margin: 2%;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 0px;
+    background-color: #191970;
+    background-image: #191970;
+    background-color: #191970;
+    color: white;
+    font-family: 'Bebas Neue',
+        cursive;
+    font-size: 26px;
+    border: 0px;
+    padding: 1.2vh 1vw 0.9vh 1vw;
+    text-align: center;
+    transition: 0.3s;
+    margin-bottom: 20vh;
+   
+}
+
+#options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.option:hover {
+    background-color: #6D57F1;
+}
+.contour, h1{
+    border: #000 solid 1px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    
+}
+h1{
+    font-weight: normal;
+    margin-top: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#contenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20vh;
+}
+ 
+.legende{
+    display: none;
+}
+.rangement{
+    display: flex;
+}
+.enonce{
+    width: 28%;
+}
+
