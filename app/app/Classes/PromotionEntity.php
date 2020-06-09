@@ -6,6 +6,7 @@ namespace App\Classes {
     use App\Classes\Interfaces\ExerciseAssigner;
     use App\Classes\Interfaces\ExerciseProvider;
     use App\Classes\Interfaces\ExerciseSolver;
+    use App\Models\ExerciseAssignmentModel;
     use App\Models\PromotionModel;
 
     class PromotionEntity implements ExerciseAssignee, ExerciseProvider {
@@ -13,6 +14,7 @@ namespace App\Classes {
          * Is an ExerciseAssignee to the ExerciseAssigners
          * Is an ExerciseProvider to the ExerciseSolvers
          */
+        private $id;
         private $name;
         private $link;
         private $exerciseAssigners; // cf class diagram for more logic
@@ -26,8 +28,8 @@ namespace App\Classes {
 
         /* ExerciseAssignee implementations */
         public function addExercise(ExerciseEntity $e, ExerciseAssigner $ea) {
-            $model = new PromotionModel();
-            if ($model->isExerciseAssigned($e)) {
+            $assignModel = new ExerciseAssignmentModel();
+            if ($assignModel->isExerciseAssigned($e, $this)) {
                 return false; // this exercise is already assigned to this promotion, display msg in the view
             }
 
@@ -37,16 +39,18 @@ namespace App\Classes {
                 'assigner' => $ea,
                 'date' => date("Y-m-d H:i:s"),
             ];
+            $model = new PromotionModel();
             $model->syncExercises($this);
             return true;
         }
 
         public function removeExercise(ExerciseEntity $e) {
-            $model = new PromotionModel();
-            if ($model->isExerciseAssigned($e)) {
+            $assignModel = new ExerciseAssignmentModel();
+            if ($assignModel->isExerciseAssigned($e, $this)) {
                 foreach ($this->exerciseAssignations as $assignation) {
                     if ($assignation['exercise']->getId() === $e->getId()) unset($assignation);
                 }
+                $model = new PromotionModel();
                 $model->syncExercises($this);
             }
         }
@@ -106,13 +110,30 @@ namespace App\Classes {
          * @param $exerciseAssigners
          * @param $exerciseSolvers
          */
-        public function __construct($name, $link, $exerciseAssigners, $exerciseSolvers, $exerciseAssignations)
+        public function __construct($id, $name, $link, $exerciseAssigners, $exerciseSolvers, $exerciseAssignations)
         {
+            $this->id = $id;
             $this->name = $name;
             $this->link = $link;
             $this->exerciseAssigners = $exerciseAssigners;
             $this->exerciseSolvers = $exerciseSolvers;
             $this->exerciseAssignations = $exerciseAssignations;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getId()
+        {
+            return $this->id;
+        }
+
+        /**
+         * @param mixed $id
+         */
+        public function setId($id): void
+        {
+            $this->id = $id;
         }
 
         /**
