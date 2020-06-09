@@ -2,12 +2,11 @@
 
 namespace App\Classes {
 
-    class UserEntity
+    use App\Classes\Interfaces\Notifiable;
+    use App\Models\NotificationsModel;
+
+    class UserEntity implements Notifiable
     {
-        /*
-         * The constructor & pwd setter automatically sha512 hashes the password.
-         * Because of this, the entity can be saved to the DB as is & compared to the DB pwd value.
-         */
         private $mail;
         private $name;
         private $firstName;
@@ -21,7 +20,7 @@ namespace App\Classes {
             $this->name = $name;
             $this->firstName = $firstName;
             $this->birthIsoDate = $birthIsoDate;
-            $this->pwd = hash('sha512', $pwd);
+            $this->pwd = $pwd;
             $this->isDeleted = $isDeleted;
         }
 
@@ -34,6 +33,22 @@ namespace App\Classes {
                 'pwd' => $this->pwd,
                 'isDeleted' => $this->isDeleted,
             ];
+        }
+
+        public function getUnreadNotifications()
+        {
+            $model = new NotificationsModel;
+            return $model->getUnreadNotifications($this->mail);
+        }
+
+        public function read(NotificationEntity $n)
+        {
+            $n->setIsRead(true);
+        }
+
+        public function unread(NotificationEntity $n)
+        {
+            $n->setIsRead(false);
         }
 
 
@@ -114,7 +129,7 @@ namespace App\Classes {
          */
         public function setPwd($pwd): void
         {
-            $this->pwd = hash('sha512', $pwd);
+            $this->pwd = $pwd;
         }
 
         /**
@@ -132,6 +147,5 @@ namespace App\Classes {
         {
             $this->isDeleted = $isDeleted;
         }
-
     }
 }

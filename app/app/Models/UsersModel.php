@@ -1,6 +1,8 @@
 <?php namespace App\Models;
 use CodeIgniter\Model;
 
+use App\Classes\UserEntity;
+
 
 class UsersModel extends Model {
     protected $table = 'users';
@@ -12,8 +14,23 @@ class UsersModel extends Model {
     */
 
     public function getUser($mail) {
-        return $this->asArray()
+        $userData = $this->asArray()
             ->where(['mail' => $mail])
             ->first();
+        if ($userData != null) {
+            $userData = new UserEntity(
+                $userData['mail'],
+                $userData['name'],
+                $userData['firstName'],
+                $userData['birthIsoDate'],
+                $userData['pwd'],
+                $userData['isDeleted']
+            );
+        }
+        return $userData;
+    }
+
+    public function saveEntity($user) {
+        $this->save($user->toArray());
     }
 }

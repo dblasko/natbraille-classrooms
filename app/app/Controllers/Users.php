@@ -46,7 +46,7 @@ class Users extends BaseController {
             htmlspecialchars($this->request->getVar('signinName')),
             htmlspecialchars($this->request->getVar('signinFirstName')),
             htmlspecialchars($this->request->getVar('signinDate')),
-            htmlspecialchars($this->request->getVar('signinPwd'))
+            hash('sha512', htmlspecialchars($this->request->getVar('signinPwd'))) // password hash is saved to the DB
         );
         $pwdConfirmValue = htmlspecialchars($this->request->getVar('signinPwdConfirm'));
         $parsedDate = $this->convertDate($userToInsert->getBirthIsoDate()); // parse & transform the date to the correct format for the DB
@@ -72,7 +72,7 @@ class Users extends BaseController {
                 $msg = 'Un compte correspondant à l\'adresse mail renseignée existe déjà.';
             } else { // inscription
                 $userToInsert->setBirthIsoDate($parsedDate); // the parsed date is correct, we can save it now
-                $model->save($userToInsert->toArray());
+                $model->saveEntity($userToInsert);
                 //$this->sendConfirmationMail($userToInsert->getMail(), $userToInsert->getFirstName().' '.$userToInsert->getName());
                 $invalid_form_input = false;
                 $title = 'Inscription réussie.';
@@ -91,6 +91,11 @@ class Users extends BaseController {
     }
 
 
+    public static function prepareLoggedInUserData($user) {
+        $data['notifications'] = $user->getUnreadNotifications();
+        return $data;
+    }
+
     public function logIn() {
         $mail = $this->request->getVar('loginMail');
         $pwd = $this->request->getVar('loginPwd');
@@ -105,13 +110,14 @@ class Users extends BaseController {
             if ($userDbData == null) {
                 $invalid_form_input = true;
                 $msg = "Il n'existe pas de compte associé à l'adresse mail renseignée.";
-            } else if ($userDbData['pwd'] !== hash('sha512', $pwd)) {
+            } else if ($userDbData->getPwd() !== hash('sha512', $pwd)) {
                 $invalid_form_input = true;
                 $msg = "Le mot de passe renseigné est invalide.";
             } else { // connecté
                 $invalid_form_input = false;
-                // TODO : variables de session etc° ici
                 session()->set('loggedIn', true);
+                session()->set('user', $userDbData);
+                $data = $this->prepareLoggedInUserData($userDbData);
             }
         }
 
@@ -122,6 +128,7 @@ class Users extends BaseController {
             'invalid_form_input' => $invalid_form_input,
             'msg' => isset($msg)? $msg : null,
             'session' => session(),
+            'workspaceData' => isset($data)? $data : null,
         ]);
     }
 
