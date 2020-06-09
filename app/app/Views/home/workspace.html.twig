@@ -1,0 +1,101 @@
+{% extends "base.html.twig" %}
+
+{% block additional_stylesheets_and_scripts %}
+    <link href="/CSS/accueil.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Espace de travail
+{% endblock %}
+
+{% block content %}
+    <div id="logged-in-content">
+        <div class="card" id="workspace">
+            <div class="col card">
+                <h2 class="title-2">Nouvelles notifications</h2>
+            </div>
+            <div class="col">
+                <h1 class="title-1">Mon espace de travail</h1>
+                <a class="button">Gérer mon compte</a>
+                <a class="button">Messagerie</a>
+                <a class="button">Créer un exercice</a>
+                <a class="button">Créer une promotion</a>
+            </div>
+            <div class="col card">
+                <h2 class="title-2">Mes promotions</h2>
+            </div>
+        </div>
+        <div class="card" id="exercises">
+            <h1 class="title-1">Mes exercices</h1>
+            <div id="exercises-row-1">
+                <label class="accessibility-label" for="exercise-research">Rechercher le titre de l'exercice :</label>
+                <input name="exercise-research" id="exercise-research" class="form-input" type="text"
+                       placeholder="Rechercher le titre de l'exercice ici...">
+                <a class="button">Tri par dates de création croissantes</a>
+                <a class="button">Tri par dates de création décroissantes</a>
+            </div>
+            <div class="card" id="exercises-row-2">
+                <div class="card">
+                    <p>Braille abrégé avancé</p>
+                    <a class="button">X</a>
+                </div>
+                <div class="card">
+                    <p>Transcription de Voltaire</p>
+                    <a class="button">X</a>
+                </div>
+                <div class="card">
+                    <p>Les erreurs à éviter</p>
+                    <a class="button">X</a>
+                </div>
+                <div class="card">
+                    <p>Les erreurs à éviter</p>
+                    <a class="button">X</a>
+                </div>
+                <div class="card">
+                    <p>Les erreurs à éviter</p>
+                    <a class="button">X</a>
+                </div>
+                <div class="card">
+                    <p>Les erreurs à éviter</p>
+                    <a class="button">X</a>
+                </div>
+            </div>
+        </div>
+        <div class="card" id="open-promotions">
+            <h1 class="title-1">Promotions ouvertes</h1>
+            <div id="promotions-row-1">
+                <label class="accessibility-label" for="promotion-research">Rechercher le nom de la promotion :</label>
+                <input name="promotion-research" id="promotion-research" class="form-input" type="text"
+                       placeholder="Rechercher le nom de la promotion ici...">
+                <a class="button">Tri par dates de création croissantes</a>
+                <a class="button">Tri par dates de création décroissantes</a>
+            </div>
+            <div class="card" id="promotions-row-2">
+                <div class="card">
+                    <p>Promotion ouverte 1</p>
+                    <a class="button">Rejoindre</a>
+                </div>
+                <div class="card">
+                    <p>Promotion ouverte 2</p>
+                    <a class="button">Rejoindre</a>
+                </div>
+                <div class="card">
+                    <p>Promotion ouverte 3</p>
+                    <a class="button">Rejoindre</a>
+                </div>
+                <div class="card">
+                    <p>Promotion ouverte 4</p>
+                    <a class="button">Rejoindre</a>
+                </div>
+                <div class="card">
+                    <p>Promotion ouverte 5</p>
+                    <a class="button">Rejoindre</a>
+                </div>
+                <div class="card">
+                    <p>Promotion ouverte 6</p>
+                    <a class="button">Rejoindre</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

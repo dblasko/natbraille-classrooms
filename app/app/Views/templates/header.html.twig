@@ -9,8 +9,8 @@
     </a>
     <div class="header-right">
         {% if session.loggedIn %}
-            <a href="/#signin" class="headerLink">Mon compte</a>
-            <a href="/#login" class="headerLink" onclick="simulateLogin(event)">Me déconnecter</a>
+            <a href="/" class="headerLink">Mon compte</a>
+            <a href="/users/logout" class="headerLink">Me déconnecter</a>
         {% else %}
             <a href="/#signin" class="headerLink">S'inscrire</a>
             <a href="/#login" class="headerLink" onclick="simulateLogin(event)">Se connecter</a>

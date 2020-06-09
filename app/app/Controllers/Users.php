@@ -124,4 +124,15 @@ class Users extends BaseController {
             'session' => session(),
         ]);
     }
+
+    public function logOut() {
+        session()->set('loggedIn', false);
+        $twig = twig_instance();
+        $twig->display('home/logged_out_content.html', [
+            'title' => 'Vous êtes déconnecté.',
+            'msg' => 'Vous pouvez quitter le site ou vous reconnecter ci-dessous.',
+            'session' => session(),
+            'invalid_form_input' => false,
+        ]);
+    }
 }

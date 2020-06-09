@@ -2,7 +2,7 @@ CREATE TABLE Users (
     mail VARCHAR(50) PRIMARY KEY,
     name VARCHAR(20),
     firstName VARCHAR(20),
-    birthIsoDate TIMESTAMP,
+    birthIsoDate DATE,
     pwd VARCHAR(128) NOT NULL,
     isDeleted BOOLEAN DEFAULT FALSE
 );
