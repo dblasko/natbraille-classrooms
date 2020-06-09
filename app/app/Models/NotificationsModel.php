@@ -25,7 +25,7 @@ class NotificationsModel extends Model
     }
 
     public function getUnreadNotifications($userMail) {
-        $query = $this->db->query("SELECT * FROM notifications WHERE userMail = ? AND isSeen = 0", array($userMail));
+        $query = $this->db->query("SELECT * FROM notifications WHERE userMail = ? AND isSeen = 0 ORDER BY isoDate DESC", array($userMail));
 
         if ($query != null) {
             $unreadNotifications = array();

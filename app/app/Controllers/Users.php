@@ -33,6 +33,11 @@ class Users extends BaseController {
 
     }
 
+    protected function addWelcomeNotification($mailAddr) {
+        $model = new NotificationsModel();
+        $model->createNotification(date("Y-m-d H:i:s"), 'Bienvenue sur Natbraille Classrooms !', $mailAddr, '/');
+    }
+
     protected function convertDate($date) {
         /*
          * Returns false if the date can't be parsed, else a date that can be saved in MySQL
@@ -75,6 +80,7 @@ class Users extends BaseController {
                 $userToInsert->setBirthIsoDate($parsedDate); // the parsed date is correct, we can save it now
                 $model->saveEntity($userToInsert);
                 //$this->sendConfirmationMail($userToInsert->getMail(), $userToInsert->getFirstName().' '.$userToInsert->getName());
+                $this->addWelcomeNotification($userToInsert->getMail());
                 $invalid_form_input = false;
                 $title = 'Inscription réussie.';
                 $msg = 'Un e-mail de confirmation devrait vous parvenir sous peu. Vous pouvez dès maintenant vous connecter avec les identifiants renseignés lors de l\'inscription.';
@@ -149,8 +155,7 @@ class Users extends BaseController {
         $model = new NotificationsModel();
         $notification = $model->getById($notifId);
         if ($user != null && $notification != null) {
-            $user->read($notification); // TODO => go dans user read, voir si on appel modele la ou dans entité notif
-            // surement appel model la + set dans l'objet
+            $user->read($notification); 
         }
         header("Location: /");
         exit();

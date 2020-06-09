@@ -102,7 +102,7 @@ body>div {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin: 0vh 0vh 5vh 0vh;
+    margin: 2vh 0vh 5vh 0vh;
 }
 
 #workspace>.card {
@@ -203,10 +203,11 @@ body>div {
     align-items: center;
     justify-content: space-between;
     padding: 0.5vh 1vw;
+    margin: 1vh 0vw;
 }
 
 #notifications p, #promotions p {
-    text-align: center;
+    padding-right: 1vw;
 }
 
 #notifications .button {

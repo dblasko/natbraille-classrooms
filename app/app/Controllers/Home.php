@@ -10,7 +10,6 @@ class Home extends BaseController
         $page = (session('loggedIn'))? 'home/workspace.html' : 'home/logged_out_content.html';
         if (session('loggedIn')) {
             $data = Users::prepareLoggedInUserData(session('user'));
-            echo print_r($data['notifications']);
         }
         $twig->display ($page, [
             'session' => session(),

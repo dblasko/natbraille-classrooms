@@ -2,10 +2,12 @@
 
 namespace App\Classes {
 
+    use App\Classes\Interfaces\ExerciseAssignee;
     use App\Classes\Interfaces\Notifiable;
+    use App\Classes\Interfaces\ExerciseAssigner;
     use App\Models\NotificationsModel;
 
-    class UserEntity implements Notifiable
+    class UserEntity implements Notifiable, ExerciseAssigner
     {
         private $mail;
         private $name;
@@ -35,6 +37,8 @@ namespace App\Classes {
             ];
         }
 
+        /* Notifiable implementation */
+
         public function getUnreadNotifications()
         {
             $model = new NotificationsModel;
@@ -53,6 +57,17 @@ namespace App\Classes {
             $model = new NotificationsModel();
             $n->setIsRead(false);
             $model->saveEntity($n);
+        }
+
+        /* ExerciseAssigner implementation */
+
+        public function assign(ExerciseEntity $e, ExerciseAssignee $a) {
+            // Returns false if coudln't be assigned because that exercise is already assigned to the promotion
+            return $a->addExercise($e, $this);
+        }
+
+        public function unassign(ExerciseEntity $e, ExerciseAssignee $a) {
+            $a->removeExercise($e);
         }
 
 
