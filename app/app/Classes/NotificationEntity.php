@@ -17,8 +17,8 @@
         public function toArray() {
             return [
                 'id' => $this->id,
-                'isRead' => $this->isRead,
-                'text' => $this->text,
+                'isSeen' => $this->isRead,
+                'content' => $this->text,
                 'link' => $this->link,
             ];
         }

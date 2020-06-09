@@ -13,6 +13,7 @@ CREATE TABLE Notifications (
     content VARCHAR(256),
     isSeen BOOLEAN DEFAULT FALSE,
     userMail VARCHAR(50),
+    link VARCHAR(128),
     CONSTRAINT fk_notifications_users FOREIGN KEY (userMail) REFERENCES Users(mail)
 );
 

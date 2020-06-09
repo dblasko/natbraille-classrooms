@@ -11,8 +11,16 @@
 {% block content %}
     <div id="logged-in-content">
         <div class="card" id="workspace">
-            <div class="col card">
+            <div class="col card" id="col-1">
                 <h2 class="title-2">Nouvelles notifications</h2>
+                <div class="card" id = "notifications">
+                    {% for notification in workspaceData.notifications %}
+                        <div class="card">
+                            <a href="{{ notification.link }}"><p>{{ notification.text }}</p></a>
+                            <a href="/users/read/{{ notification.id }}" class="button">Vu</a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="col">
                 <h1 class="title-1">Mon espace de travail</h1>
@@ -21,8 +29,16 @@
                 <a class="button">Créer un exercice</a>
                 <a class="button">Créer une promotion</a>
             </div>
-            <div class="col card">
+            <div class="col card" id="col-2">
                 <h2 class="title-2">Mes promotions</h2>
+                <div class="card" id="promotions-list">
+                    {% for promotion in workspaceData.promotions %}
+                        <div class="card">
+                            <a href="{{ promotion.link }}"><p>{{ promotion.name }}</p></a>
+                            <a href="/promotions/{{ promotion.id }}" class="button">Y aller</a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <div class="card" id="exercises">

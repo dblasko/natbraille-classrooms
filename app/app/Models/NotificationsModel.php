@@ -13,13 +13,23 @@ class NotificationsModel extends Model
         $this->save($notification->toArray());
     }
 
-    public function getUnreadNotifications($userMail) {
-        $results = $this->asArray()
-            ->where(['userMail' => $userMail]);
+    public function createNotification($timestamp, $content, $userMail, $link) {
+        $data = [
+            'isoData' => $timestamp,
+            'content' => $content,
+            'isSeen' => 0,
+            'userMail' => $userMail,
+            'link' => $link,
+        ];
+        $this->save($data);
+    }
 
-        if ($results != null) {
+    public function getUnreadNotifications($userMail) {
+        $query = $this->db->query("SELECT * FROM notifications WHERE userMail = ? AND isSeen = 0", array($userMail));
+
+        if ($query != null) {
             $unreadNotifications = array();
-            foreach ($results as $result) {
+            foreach ($query->getResultArray() as $result) {
                 $unreadNotifications[] = new NotificationEntity(
                     $result['id'], $result['isSeen'], $result['content'], $result['link']
                 );
@@ -27,5 +37,17 @@ class NotificationsModel extends Model
         } else $unreadNotifications = null;
 
         return $unreadNotifications;
+    }
+
+    public function getById($id) {
+        $data = $this->asArray()
+            ->where(['id' => $id])
+            ->first();
+        if ($data != null) {
+            $notification = new NotificationEntity(
+                $data['id'], $data['isSeen'], $data['content'], $data['link']
+            );
+        }
+        return isset($notification)? $notification : null;
     }
 }

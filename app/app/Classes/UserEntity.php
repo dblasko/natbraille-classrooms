@@ -43,12 +43,16 @@ namespace App\Classes {
 
         public function read(NotificationEntity $n)
         {
+            $model = new NotificationsModel();
             $n->setIsRead(true);
+            $model->saveEntity($n);
         }
 
         public function unread(NotificationEntity $n)
         {
+            $model = new NotificationsModel();
             $n->setIsRead(false);
+            $model->saveEntity($n);
         }
 
 

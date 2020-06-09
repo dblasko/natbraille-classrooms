@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 use App\Classes\UserEntity as UserEntity;
+use App\Models\NotificationsModel;
 use App\Models\UsersModel;
 
 use DateTime;
@@ -141,5 +142,17 @@ class Users extends BaseController {
             'session' => session(),
             'invalid_form_input' => false,
         ]);
+    }
+
+    public function read($notifId) {
+        $user = session('user');
+        $model = new NotificationsModel();
+        $notification = $model->getById($notifId);
+        if ($user != null && $notification != null) {
+            $user->read($notification); // TODO => go dans user read, voir si on appel modele la ou dans entité notif
+            // surement appel model la + set dans l'objet
+        }
+        header("Location: /");
+        exit();
     }
 }
