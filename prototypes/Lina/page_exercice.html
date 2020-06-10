@@ -22,23 +22,21 @@
             <a href="#login" class="headerLink" onclick="simulateLogin(event)">Se connecter</a>
         </div>
     </header>
+    <h1 class="title-1">Création d'exercices</h1>
     <div id="contenu">
         
-        <div id="texte">
-            <div class="contour">
-                    <h1>ÉNONCÉ</h1>
-            </div>
+        <div id="texte" class="card">
+            <h1 class="title-1">ÉNONCÉ</h1>
             
             <label for="enonce" class="legende">Enoncé</label><textarea name="story" id="enonce"
             rows="30" cols="55">Ecrire le texte ...
             </textarea>
         </div>
 
-        <div id="correction">
-            <div class="contour">
-                <h1>CORRECTION</h1>
-            </div>
-            
+        <div id="correction" class="card">
+           
+            <h1 class="title-1">CORRECTION</h1>
+          
            <label for="correction_text" class="legende">Correction</label><textarea name="story" id="correction_text"
             rows="30" cols="55">Ecrire la correction ...
             </textarea>
@@ -47,10 +45,10 @@
 
 
     <div id="options">
-        <button class="option">EFFACER LE TEXTE</button>
-        <button class="option">COMMENTER LA CORRECTION</button>
-        <button class="option">GÉNÉRER LA CORRECTION</button>
-        <button class="option">SAUVEGARDER</button>
+        <button class="option button">EFFACER LE TEXTE</button>
+        <button class="option button">COMMENTER LA CORRECTION</button>
+        <button class="option button">GÉNÉRER LA CORRECTION</button>
+        <button class="option button">SAUVEGARDER</button>
     </div>
     <footer>
         <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
