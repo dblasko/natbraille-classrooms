@@ -34,13 +34,18 @@ textarea {
     margin-bottom: 20vh;
    
 }
-
+body>h1{
+    margin-left: 18vh;
+    margin-right: 18vh;
+}
 #informations-sur-solution {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 15vh;
+    margin-top: 5vh;
+    flex-direction: column;
+    
 }
 
 #options{
@@ -63,7 +68,7 @@ textarea {
 
 h1{
     font-weight: normal;
-    margin-top: 15vh;
+    margin-top: 5vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,8 +77,16 @@ h1{
 #contenu {
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    margin-top: 2vh;
+}
+.score{
+    display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 20vh;
+    flex-direction: column;
+    width: 20vh;
+    margin-top: 5vh;
 }
  
 .legende{
