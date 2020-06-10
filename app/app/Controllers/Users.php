@@ -2,6 +2,7 @@
 
 use App\Classes\UserEntity as UserEntity;
 use App\Models\NotificationsModel;
+use App\Models\PromotionModel;
 use App\Models\UsersModel;
 
 use DateTime;
@@ -101,6 +102,9 @@ class Users extends BaseController {
     public static function prepareLoggedInUserData($user) {
         $data['notifications'] = $user->getUnreadNotifications();
         $data['exercises'] = $user->getExercises();
+        $data['promotions'] = $user->getPromotions();
+        $model = new PromotionModel();
+        $data['openPromotions'] = $model->getOpenPromotions();
         return $data;
     }
 

@@ -41,4 +41,30 @@ class ExerciseAssignmentModel extends Model {
         $model = new SolutionSubmissionModel();
         $model->saveEntities($submissions);
     }
+
+    public function getPromotionExerciseAssignationsArray($promotionId) {
+        /*
+         * The array is documented in PromotionEntity.php
+         */
+        // TODO : test if works correctly, enable the boolean in promotionmodel's helper to get all the promotion data...
+        $userModel = new UsersModel();
+        $exerciseModel = new ExerciseModel();
+        $submissionsModel = new SolutionSubmissionModel();
+        $exerciseAssignations = [];
+        $query = $this->db->query("SELECT * FROM exerciseaffectation  WHERE idPromotion = ?", array($promotionId));
+
+
+        if ($query != null) {
+            foreach ($query->getResultArray() as $affectation) {
+                $exerciseAssignation = [];
+                $exerciseAssignation['id'] = $affectation['id'];
+                $exerciseAssignation['date'] = $affectation['affectationIsoDate'];
+                $exerciseAssignation['exercise'] = $exerciseModel->getExercise($affectation['idExo']);
+                $exerciseAssignation['assigner'] = $userModel->getUser($exerciseAssignation['exercise']->getCreatedByMail());
+                $exerciseAssignation['submissions'] = $submissionsModel->getAssignationSubmissions($exerciseAssignation['id'], $exerciseAssignation['exercise']);
+                $exerciseAssignations[] = $exerciseAssignation;
+            }
+        }
+        return $exerciseAssignations;
+    }
 }

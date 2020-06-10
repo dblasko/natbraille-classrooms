@@ -30,5 +30,26 @@ class SolutionSubmissionModel extends Model {
         }
     }
 
+    public function getAssignationSubmissions($assignationId, $exerciseEntity=null) {
+        /*
+         * Gets all SolutionSubmission corresponding to an exercise's assignation to a promotion
+         * Since the exerciseEntity is usually available when handling the assignation (and when calling this function),
+         *  we pass it as a parameter in order to not have to go through another query to create it for each SolutionSubmissionEntity
+         */
+        $submissions = [];
+        $query = $this->db->query("SELECT * FROM attempt WHERE idAffectation = ?", array($assignationId));
+
+        if ($query != null) {
+            foreach($query->getResultArray() as $submissionData) {
+                $submission = new SolutionSubmissionEntity(
+                    $submissionData['id'], $submissionData['isoDate'], $exerciseEntity, $submissionData['userMail'],
+                    $submissionData['score'], $submissionData['attemptTxt']
+                );
+                $submissions[] = $submission;
+            }
+        }
+        return $submissions;
+    }
+
 
 }

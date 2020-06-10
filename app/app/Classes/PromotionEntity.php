@@ -17,6 +17,8 @@ namespace App\Classes {
         private $id;
         private $name;
         private $link;
+        private $creationIsoDate;
+        private $isClosedPromotion;
         private $exerciseAssigners; // cf class diagram for more logic
         private $exerciseSolvers; // cf class diagram for more logic
         /*
@@ -108,11 +110,13 @@ namespace App\Classes {
          * @param $exerciseAssigners
          * @param $exerciseSolvers
          */
-        public function __construct($id, $name, $link, $exerciseAssigners, $exerciseSolvers, $exerciseAssignations)
+        public function __construct($id, $name, $link, $isClosedPromotion, $creationIsoDate, $exerciseAssigners, $exerciseSolvers, $exerciseAssignations)
         {
             $this->id = $id;
             $this->name = $name;
             $this->link = $link;
+            $this->isClosedPromotion = $isClosedPromotion;
+            $this->$creationIsoDate = $creationIsoDate;
             $this->exerciseAssigners = $exerciseAssigners;
             $this->exerciseSolvers = $exerciseSolvers;
             $this->exerciseAssignations = $exerciseAssignations;
@@ -133,6 +137,41 @@ namespace App\Classes {
         {
             $this->id = $id;
         }
+
+        /**
+         * @return mixed
+         */
+        public function getCreationIsoDate()
+        {
+            return $this->creationIsoDate;
+        }
+
+        /**
+         * @param mixed $creationIsoDate
+         */
+        public function setCreationIsoDate($creationIsoDate): void
+        {
+            $this->creationIsoDate = $creationIsoDate;
+        }
+
+
+
+        /**
+         * @return mixed
+         */
+        public function getIsClosedPromotion()
+        {
+            return $this->isClosedPromotion;
+        }
+
+        /**
+         * @param mixed $isClosedPromotion
+         */
+        public function setIsClosedPromotion($isClosedPromotion): void
+        {
+            $this->isClosedPromotion = $isClosedPromotion;
+        }
+
 
         /**
          * @return mixed

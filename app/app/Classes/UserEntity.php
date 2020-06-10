@@ -9,6 +9,7 @@ namespace App\Classes {
     use App\Classes\Interfaces\ExerciseSolver;
     use App\Models\ExerciseModel;
     use App\Models\NotificationsModel;
+    use App\Models\PromotionModel;
 
     class UserEntity implements Notifiable, ExerciseAssigner, ExerciseSolver
     {
@@ -88,6 +89,11 @@ namespace App\Classes {
         public function getExercises() {
             $model = new ExerciseModel();
             return $model->getUserExercises($this);
+        }
+
+        public function getPromotions() {
+            $model = new PromotionModel();
+            return $model->getPromotionsMemberOf($this);
         }
 
 

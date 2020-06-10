@@ -39,7 +39,7 @@
                 <div class="card" id="promotions-list">
                     {% for promotion in workspaceData.promotions %}
                         <div class="card">
-                            <a href="{{ promotion.link }}"><p>{{ promotion.name }}</p></a>
+                            <a><p>{{ promotion.name }}</p></a>
                             <a href="/promotions/{{ promotion.id }}" class="button">Y aller</a>
                         </div>
                     {% endfor %}
@@ -74,30 +74,12 @@
                 <a class="button">Tri par dates de création décroissantes</a>
             </div>
             <div class="card" id="promotions-row-2">
-                <div class="card">
-                    <p>Promotion ouverte 1</p>
-                    <a class="button">Rejoindre</a>
-                </div>
-                <div class="card">
-                    <p>Promotion ouverte 2</p>
-                    <a class="button">Rejoindre</a>
-                </div>
-                <div class="card">
-                    <p>Promotion ouverte 3</p>
-                    <a class="button">Rejoindre</a>
-                </div>
-                <div class="card">
-                    <p>Promotion ouverte 4</p>
-                    <a class="button">Rejoindre</a>
-                </div>
-                <div class="card">
-                    <p>Promotion ouverte 5</p>
-                    <a class="button">Rejoindre</a>
-                </div>
-                <div class="card">
-                    <p>Promotion ouverte 6</p>
-                    <a class="button">Rejoindre</a>
-                </div>
+                {% for promotion in workspaceData.openPromotions %}
+                    <div class="card">
+                        <p>{{ promotion.name }}</p>
+                        <a class="button" href="/promotions/{{ promotion.link }}">Rejoindre</a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

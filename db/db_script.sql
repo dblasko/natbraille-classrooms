@@ -120,3 +120,6 @@ create table TranscriptionType
    name     varchar(25)
 );
 
+INSERT INTO `roles` (`roleName`) VALUES ('ENSEIGNANT');
+INSERT INTO `roles` (`roleName`) VALUES ('APPRENANT');
+

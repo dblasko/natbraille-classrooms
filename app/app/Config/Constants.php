@@ -15,6 +15,9 @@ defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
 
 define('CLASSES_DIR', __DIR__ . "/../Classes/");
 
+define('ROLE_TEACHER', 'ENSEIGNANT');
+define('ROLE_STUDENT', 'APPRENANT');
+
 /*
 |--------------------------------------------------------------------------
 | Composer Path
