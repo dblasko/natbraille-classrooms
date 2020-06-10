@@ -100,6 +100,7 @@ class Users extends BaseController {
 
     public static function prepareLoggedInUserData($user) {
         $data['notifications'] = $user->getUnreadNotifications();
+        $data['exercises'] = $user->getExercises();
         return $data;
     }
 

@@ -7,6 +7,7 @@ namespace App\Classes {
     use App\Classes\Interfaces\Notifiable;
     use App\Classes\Interfaces\ExerciseAssigner;
     use App\Classes\Interfaces\ExerciseSolver;
+    use App\Models\ExerciseModel;
     use App\Models\NotificationsModel;
 
     class UserEntity implements Notifiable, ExerciseAssigner, ExerciseSolver
@@ -81,6 +82,12 @@ namespace App\Classes {
         public function getSubmissions(ExerciseEntity $e, ExerciseProvider $ep) {
             // get the solver's (here this user) submissions for given exercise at the provider
             return $ep->getSolverSubmissions($this, $e);
+        }
+
+
+        public function getExercises() {
+            $model = new ExerciseModel();
+            return $model->getUserExercises($this);
         }
 
 

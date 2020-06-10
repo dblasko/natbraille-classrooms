@@ -10,6 +10,11 @@
 
 {% block content %}
     <div id="logged-in-content">
+        {% if invalid_form_input %}
+            {{ include('templates/input_error_bar.html.twig') }}
+        {% elseif title %}
+            {{ include('templates/info_message_bar.html.twig') }}
+        {% endif %}
         <div class="card" id="workspace">
             <div class="col card" id="col-1">
                 <h2 class="title-2">Nouvelles notifications</h2>
@@ -51,30 +56,12 @@
                 <a class="button">Tri par dates de création décroissantes</a>
             </div>
             <div class="card" id="exercises-row-2">
-                <div class="card">
-                    <p>Braille abrégé avancé</p>
-                    <a class="button">X</a>
-                </div>
-                <div class="card">
-                    <p>Transcription de Voltaire</p>
-                    <a class="button">X</a>
-                </div>
-                <div class="card">
-                    <p>Les erreurs à éviter</p>
-                    <a class="button">X</a>
-                </div>
-                <div class="card">
-                    <p>Les erreurs à éviter</p>
-                    <a class="button">X</a>
-                </div>
-                <div class="card">
-                    <p>Les erreurs à éviter</p>
-                    <a class="button">X</a>
-                </div>
-                <div class="card">
-                    <p>Les erreurs à éviter</p>
-                    <a class="button">X</a>
-                </div>
+                {% for exercise in workspaceData.exercises %}
+                    <div class="card">
+                        <p>{{ exercise.name }}</p>
+                        <a class="button" href="/exercises/remove/{{ exercise.id }}">X</a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
         <div class="card" id="open-promotions">

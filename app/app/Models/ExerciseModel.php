@@ -1,4 +1,4 @@
-<?php namespace App\Model;
+<?php namespace App\Models;
 use App\Classes\ExerciseEntity;
 use App\Classes\UserEntity;
 use CodeIgniter\Model;
@@ -7,6 +7,19 @@ class ExerciseModel extends Model {
     protected $table = 'exercises';
     protected $allowedFields = ['lastUpdateIsoDate', 'name', 'exerciseContent', 'exerciseCorrection', 'commentaryContent',
         'createdByMail', 'idTranscriptionType'];
+
+    public function getExercise($exerciseId) {
+        $exerciseData = $this->asArray()
+            ->where(['id' => $exerciseId])
+            ->first();
+        if ($exerciseData != null) {
+            $exerciseData = new ExerciseEntity(
+                $exerciseData['id'], $exerciseData['name'], $exerciseData['exerciseContent'], $exerciseData['exerciseCorrection'],
+                $exerciseData['commentaryContent'], $exerciseData['createdByMail'], $exerciseData['idTranscriptionType']
+            );
+        }
+        return $exerciseData;
+    }
 
     public function getUserExercises(UserEntity $user) {
         $exercises = [];
