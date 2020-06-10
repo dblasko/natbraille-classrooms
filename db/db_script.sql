@@ -109,8 +109,6 @@ create table ExerciseAffectation
    id   int(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
    affectationIsoDate   timestamp,
    idExo                int(6),
-   dateAssign           timestamp,
-   idExercise			int(6),
    idPromotion  		int(6),
    CONSTRAINT fk_idExercise FOREIGN KEY (id) REFERENCES Exercises(id),
    CONSTRAINT fk_idPromotion FOREIGN KEY (id) REFERENCES Promotions(id)
