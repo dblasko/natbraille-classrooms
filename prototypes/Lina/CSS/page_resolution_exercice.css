@@ -57,6 +57,8 @@ h1 {
 
 body>h1 {
     margin-top: 15vh;
+    margin-left: 18vh;
+    margin-right: 18vh;
 }
 
 h1 {
@@ -89,4 +91,10 @@ h1 {
 
 #correction {
     height: 80vh;
+}
+.ajout{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vh;
 }
