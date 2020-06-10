@@ -21,7 +21,7 @@ namespace App\Classes {
         private $exerciseSolvers; // cf class diagram for more logic
         /*
          * ExerciseAssignations is a list of arrays, each array represents an exercise assignation
-         * Each sub-array has exercise, submissions, date & assigner indexes
+         * Each sub-array has exercise, submissions, id, date & assigner indexes
          * submissions is another array of SolutionSubmissionEntities
          */
         private $exerciseAssignations;
@@ -39,8 +39,7 @@ namespace App\Classes {
                 'assigner' => $ea,
                 'date' => date("Y-m-d H:i:s"),
             ];
-            $model = new PromotionModel();
-            $model->syncExercises($this);
+            $assignModel->syncExercises($this);
             return true;
         }
 
@@ -50,8 +49,7 @@ namespace App\Classes {
                 foreach ($this->exerciseAssignations as $assignation) {
                     if ($assignation['exercise']->getId() === $e->getId()) unset($assignation);
                 }
-                $model = new PromotionModel();
-                $model->syncExercises($this);
+                $assignModel->syncExercises($this);
             }
         }
 
@@ -72,7 +70,7 @@ namespace App\Classes {
                     $assignation['submissions'][] = $ss;
                 }
             }
-            $model = new PromotionModel();
+            $model = new ExerciseAssignmentModel();
             $model->syncExercises($this);
         }
 
@@ -159,6 +157,24 @@ namespace App\Classes {
         {
             return $this->link;
         }
+
+        /**
+         * @return mixed
+         */
+        public function getExerciseAssignations()
+        {
+            return $this->exerciseAssignations;
+        }
+
+        /**
+         * @param mixed $exerciseAssignations
+         */
+        public function setExerciseAssignations($exerciseAssignations): void
+        {
+            $this->exerciseAssignations = $exerciseAssignations;
+        }
+
+
 
         /**
          * @param mixed $link

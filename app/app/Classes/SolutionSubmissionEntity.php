@@ -17,7 +17,7 @@
          * @param $score
          * @param $attemptTxt
          */
-        public function __construct($id, $isoDate, $exercise, $userMail, $score, $attemptTxt)
+        public function __construct($id=null, $isoDate, $exercise, $userMail, $score, $attemptTxt)
         {
             $this->id = $id;
             $this->isoDate = $isoDate;
