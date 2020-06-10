@@ -1,0 +1,84 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>NatBraille</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="css/page_correction_exercice.css">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+    <header>
+        <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
+        <a href="accueil.html" class="headerLink">Accueil</a>
+        <div class="header-right">
+            <a href="#signin" class="headerLink">S'inscrire</a>
+            <a href="#login" class="headerLink" onclick="simulateLogin(event)">Se connecter</a>
+        </div>
+    </header>
+    <div id="contenu">
+        
+        <div class="card">
+            <div class="contour">
+                    <h1>ÉNONCÉ</h1>
+            </div>
+            
+            <label for="enonce" class="legende">Enoncé</label><textarea name="story" id="enonce"
+            rows="30" cols="55">Ecrire le texte ...
+            </textarea>
+        </div>
+		
+        <div class="card">
+            <div class="contour">
+                <h1>SOLUTION</h1>
+            </div>
+            
+           <label for="correction_text" class="legende">Correction</label><p>Aenean tincidunt laoreet dui. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae Integer ipsum lectus, fermentum ac, malesuada in, eleifend ut, lorem. Vivamus ipsum turpis, elementum vel, hendrerit ut, semper at, metus. Vivamus sapien tortor, eleifend id, dapibus in, egestas et, pede. Pellentesque faucibus. Praesent lorem neque, dignissim in, facilisis nec, hendrerit vel, odio. Nam at diam ac neque aliquet viverra. Morbi dapibus ligula sagittis magna. In lobortis. Donec aliquet ultricies libero. Nunc dictum vulputate purus. Morbi varius. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In tempor. Phasellus commodo porttitor magna. Curabitur vehicula odio vel dolor.
+
+            Vestibulum sodales ipsum id augue. Integer ipsum pede, convallis sit amet, tristique vitae, tempor ut, nunc. Nam non ligula non lorem convallis hendrerit. Maecenas hendrerit. Sed magna odio, aliquam imperdiet, porta ac, aliquet eget, mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum nisl sem, dignissim vel, euismod quis, egestas ut, orci. Nunc vitae risus vel metus euismod laoreet. Cras sit amet neque a turpis lobortis auctor. Sed aliquam sem ac elit. Cras velit lectus, facilisis id, dictum sed, porta rutrum, nisl. Nam hendrerit ipsum sed augue. Nullam scelerisque hendrerit wisi. Vivamus egestas arcu sed purus. Ut ornare lectus sed eros. Suspendisse potenti. Mauris sollicitudin pede vel velit. In hac habitasse platea dictumst.
+           </p>
+        </div>  
+        <div class="card">
+            <div class="contour">
+                <h1>CORRIGÉ</h1>
+            </div>
+            <p>Aenean tincidunt laoreet dui. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae Integer ipsum lectus, fermentum ac, malesuada in, eleifend ut, lorem. Vivamus ipsum turpis, elementum vel, hendrerit ut, semper at, metus. Vivamus sapien tortor, eleifend id, dapibus in, egestas et, pede. Pellentesque faucibus. Praesent lorem neque, dignissim in, facilisis nec, hendrerit vel, odio. Nam at diam ac neque aliquet viverra. Morbi dapibus ligula sagittis magna. In lobortis. Donec aliquet ultricies libero. Nunc dictum vulputate purus. Morbi varius. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In tempor. Phasellus commodo porttitor magna. Curabitur vehicula odio vel dolor.
+
+                Vestibulum sodales ipsum id augue. Integer ipsum pede, convallis sit amet, tristique vitae, tempor ut, nunc. Nam non ligula non lorem convallis hendrerit. Maecenas hendrerit. Sed magna odio, aliquam imperdiet, porta ac, aliquet eget, mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum nisl sem, dignissim vel, euismod quis, egestas ut, orci. Nunc vitae risus vel metus euismod laoreet. Cras sit amet neque a turpis lobortis auctor. Sed aliquam sem ac elit. Cras velit lectus, facilisis id, dictum sed, porta rutrum, nisl. Nam hendrerit ipsum sed augue. Nullam scelerisque hendrerit wisi. Vivamus egestas arcu sed purus. Ut ornare lectus sed eros. Suspendisse potenti. Mauris sollicitudin pede vel velit. In hac habitasse platea dictumst.</p>
+        </div>    
+    </div>
+    <div id="informations-sur-solution">
+        <div class="card">
+            <h1>HISTORIQUE DES SOUMISSIONS</h1>
+            <li>
+                <ul>soumission 1</ul>
+                <ul>soumission 2</ul>
+            </li>
+        </div>
+        <div class="card">
+            <h1>Score</h1>
+            <p>100/150</p>
+        </div>
+        
+
+    </div>
+
+
+    <div id="options">
+        <button class="option">EFFACER LE TEXTE</button>
+    </div>
+    <footer>
+        <img src="CSS/logonat.png" alt="Logo de l'association NatBraille.">
+        <p>NATBRAILLE ASSOCIATION - 2020</p>
+        
+    </footer>
+    
+</body>
+
+</html>
