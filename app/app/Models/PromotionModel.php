@@ -127,4 +127,11 @@ class PromotionModel extends Model {
         ));
         return true;
     }
+
+    public function removeUserFromPromotion(UserEntity $user, $promoId) {
+        if (!$this->isUserMemberOfPromo($user->getMail(), $promoId)) return false;
+
+        $this->db->query("DELETE FROM promotionmemberships WHERE promotionId = ? AND memberUserMail = ?", array($promoId, $user->getMail()));
+        return true;
+    }
 }

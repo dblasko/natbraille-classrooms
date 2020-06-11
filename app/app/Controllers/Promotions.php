@@ -27,7 +27,7 @@ class Promotions extends BaseController {
         } else {
             if (!$model->isUserMemberOfPromo(session('user')->getMail(), $promotionId)) {
                 $invalid_form_input = true;
-                $msg = 'Vous n\'êtes pas membre de la promotion que vous avez essayé de consulter';
+                $msg = 'Vous n\'êtes pas membre de la promotion que vous avez essayé de consulter.';
                 $data = Users::prepareLoggedInUserData(session('user'));
                 $redir = 'home/workspace.html';
             } else { // user is logged in, the promotion exists and he's a member of it
@@ -87,5 +87,51 @@ class Promotions extends BaseController {
             header("Location: /");
             exit();
         }
+    }
+
+    public function leave($promotionId=null) {
+        $invalid_form_input = false;
+        $model = new PromotionModel();
+
+        if (!session('loggedIn')) {
+            $invalid_form_input = true;
+            $msg = 'Vous devez être connecté pour quitter une promotion';
+            $redir = 'home/logged_out_content.html';
+        } else if ($promotionId === null || !$model->isValidPromotionId($promotionId)) {
+            $invalid_form_input = true;
+            $msg = 'La promotion que vous essayez de quitter n\'existe pas.';
+            $data = Users::prepareLoggedInUserData(session('user'));
+            $redir = 'home/workspace.html';
+        } else {
+            if (!$model->isUserMemberOfPromo(session('user')->getMail(), $promotionId)) {
+                $invalid_form_input = true;
+                $msg = 'Vous n\'êtes pas membre de la promotion que vous avez essayé de quitter.';
+                $data = Users::prepareLoggedInUserData(session('user'));
+                $redir = 'home/workspace.html';
+            } else { // user is logged in, the promotion exists and he's a member of it
+                $promotion = $model->getPromotionEntity($promotionId);
+
+                if($model->removeUserFromPromotion(session('user'), $promotionId)) {
+                    $title = 'Promotion '.$promotion->getName().' quittée.';
+                    $msg = 'Celle-ci ne vous sera plus accessible et n\'apparaîtra plus dans la liste des promotions dont vous êtes membre.';
+                } else { // leaving failed
+                    $invalid_form_input = true;
+                    $msg = 'Votre suppression de la promotion '.$promotion->getName().' a échouée. Veuillez réessayer plus tard.';
+                }
+                $data = Users::prepareLoggedInUserData(session('user'));
+                $redir = 'home/workspace.html';
+            }
+        }
+
+        $twig = twig_instance();
+        $twig->display($redir, [
+            'sender_form' => 'de consultation d\'une promotion',
+            'invalid_form_input' => $invalid_form_input,
+            'title' => isset($title)? $title : null,
+            'msg' => isset($msg)? $msg : null,
+            'session' => session(),
+            'workspaceData' => isset($data)? $data : null,
+            'promotionData' => isset($promotionData)? $promotionData : null,
+        ]);
     }
 }
