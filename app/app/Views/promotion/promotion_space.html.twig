@@ -6,12 +6,12 @@
 {% endblock %}
 
 {% block title %}
-    Espace de la promotion {{ promotionData.name }}
+    Espace de la promotion {{ promotionData.promotion.name }}
 {% endblock %}
 
 {% block content %}
     <div class="card" id="promotion-space">
-        <h1 class="title-1">Espace de la promotion {{ promotionData.name }}</h1>
+        <h1 class="title-1">Espace de la promotion {{ promotionData.promotion.name }}</h1>
         <div class="card">
             <h2 class="title-2">Lien d'invitation</h2>
             <p class="helper-text">
@@ -22,15 +22,17 @@
             </p>
             <div class="card" id="invite-link-card">
                 <label for="invite-link" class="accessibility-label">Lien d'invitation de la promotion :</label>
-                <input id="link-input" readonly value="https://natbraille-classrooms.fr/{{ promotionData.link }}" type="text" name="invite-link"
+                <input id="link-input" readonly value="https://natbraille-classrooms.fr/{{ promotionData.promotion.link }}" type="text" name="invite-link"
                        id="invite-link" class="form-input" />
                 <button class="button" onclick="copyLinkToClipboard(event)">Copier le lien</button>
             </div>
         </div>
-        <div id="row-1">
-            <button id="t1" class="button">Affecter un ou des exercice(s) à la promotion</button>
-            <button class="button">Changer le nom ou la visibilité de la promotion</button>
-        </div>
+        {% if promotionData.isCurrentUserTeacher %}
+            <div id="row-1">
+                <button id="t1" class="button">Affecter un ou des exercice(s) à la promotion</button>
+                <button class="button">Changer le nom ou la visibilité de la promotion</button>
+            </div>
+        {% endif %}
         <div id="row-2">
             <button class="button">Quitter la promotion</button>
         </div>
@@ -46,35 +48,13 @@
             <a class="button">Tri par dates d'affectation décroissantes</a>
         </div>
         <div class="card" id="exercises-row-2">
+            <!-- todo : for twig & dynamic data, hrefs...-->
             <div class="card">
                 <p>Braille abrégé avancé, affecté le 12/05/2020</p>
-                <a class="button">Désaffecter</a>
-                <a class="button">J'y vais</a>
-            </div>
-            <div class="card">
-                <p>Transcription de Voltaire, affecté le 11/05/2020</p>
-                <a class="button">Désaffecter</a>
-                <a class="button">J'y vais</a>
-            </div>
-            <div class="card">
-                <p>Les erreurs à éviter, affecté le 09/04/2020</p>
-                <a class="button">Désaffecter</a>
-                <a class="button">J'y vais</a>
-            </div>
-            <div class="card">
-                <p>Les erreurs à éviter, affecté le 09/04/2020</p>
-                <a class="button">Désaffecter</a>
-                <a class="button">J'y vais</a>
-            </div>
-            <div class="card">
-                <p>Les erreurs à éviter, affecté le 09/04/2020</p>
-                <a class="button">Désaffecter</a>
-                <a class="button">J'y vais</a>
-            </div>
-            <div class="card">
-                <p>Les erreurs à éviter, affecté le 09/04/2020</p>
-                <a class="button">Désaffecter</a>
-                <a class="button">J'y vais</a>
+                {% if promotionData.isCurrentUserTeacher %}
+                    <a class="button">Désaffecter</a>
+                {% endif %}
+                <a class="button">J'y vais</a> <!-- aura lien diff ou vue diff en fonction du rôle... -->
             </div>
         </div>
     </div>
@@ -90,15 +70,17 @@
         </div>
         <div class="card" id="members-row-2">
             <div class="card">
+                <!-- todo : for twig & dynamic data, hrefs...-->
                 <p>Lina Zouiri</p>
                 <!-- TODO : dans twig, le for du label, son contenu et l'id du select dépendra du membre, dynamiquement -->
-                <label class="accessibility-label" for="role-lina">Rôle du membre Lina de la promotion :</label>
-                <select id="role-lina" class="select" disabled>
-                    <!-- disabled (si apprenant sur la page) -->
+                <label class="accessibility-label" for="role-lina">Rôle du membre de la promotion Lina :</label>
+                <select {% if promotionData.isCurrentUserTeacher == false %} disabled {% endif %} id="role-lina" class="select"> <!-- TODO : bien vérifier côté backend à la modification que l'user qui demande est co° & prof & données valides, pas faire confiance au front -->
                     <option value="teacher">Enseignant</option>
                     <option selected value="student">Apprenant</option>
                 </select>
-                <a class="button">Renvoyer de la promotion</a>
+                {% if promotionData.isCurrentUserTeacher %}
+                    <a class="button">Renvoyer de la promotion</a>
+                {% endif %}
             </div>
             <div class="card">
                 <p>Bruno Mascret</p>

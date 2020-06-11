@@ -31,7 +31,8 @@ class Promotions extends BaseController {
                 $data = Users::prepareLoggedInUserData(session('user'));
                 $redir = 'home/workspace.html';
             } else { // user is logged in, the promotion exists and he's a member of it
-                $promotion = $model->getPromotionEntity($promotionId);
+                $promotionData['promotion'] = $model->getPromotionEntity($promotionId);
+                $promotionData['isCurrentUserTeacher'] = in_array(session('user'), $promotionData['promotion']->getExerciseAssigners()); // TODO : vérifier si marche
                 $redir = '/promotion/promotion_space.html';
             }
         }
@@ -43,7 +44,7 @@ class Promotions extends BaseController {
             'msg' => isset($msg)? $msg : null,
             'session' => session(),
             'workspaceData' => isset($data)? $data : null,
-            'promotionData' => isset($promotion)? $promotion : null,
+            'promotionData' => isset($promotionData)? $promotionData : null,
         ]);
     }
 
