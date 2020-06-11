@@ -30,6 +30,16 @@ class PromotionModel extends Model {
         return $promotions;
     }
 
+    public function getPromotionEntity($promoId) {
+        $query = $this->db->query("SELECT * FROM promotions WHERE id = ?", array($promoId));
+
+        if ($query != null) {
+            $promotions = $this->createPromotionsFromQueryRows($query, true); // helper function always returns an array
+            return (count($promotions) > 0)? $promotions[0] : null;
+        }
+        return null;
+    }
+
     protected function createPromotionsFromQueryRows($query, $isPromotionDataRequired=false) {
         /*
          * if isPromotionDataRequired is false, the detailed promotion exercises & member data isn't loaded
@@ -81,6 +91,14 @@ class PromotionModel extends Model {
     public function isValidLink($promoLink) {
         $promoData = $this->asArray()
             ->where(['inviteLink' => $promoLink])
+            ->first();
+
+        return ($promoData != null);
+    }
+
+    public function isValidPromotionId($promoId) {
+        $promoData = $this->asArray()
+            ->where(['id' => $promoId])
             ->first();
 
         return ($promoData != null);

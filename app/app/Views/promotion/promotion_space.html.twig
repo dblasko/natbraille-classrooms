@@ -1,0 +1,150 @@
+{% extends "base.html.twig" %}
+
+{% block additional_stylesheets_and_scripts %}
+    <link href="/CSS/promo.css" rel="stylesheet">
+    <script src="/Scripts/copyToClipboard.js"></script>
+{% endblock %}
+
+{% block title %}
+    Espace de la promotion {{ promotionData.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="card" id="promotion-space">
+        <h1 class="title-1">Espace de la promotion {{ promotionData.name }}</h1>
+        <div class="card">
+            <h2 class="title-2">Lien d'invitation</h2>
+            <p class="helper-text">
+                Afin d’inviter des membres dans cette promotion, veuillez leur communiquer le lien suivant. <br /> Pour
+                des raisons de sécurité, un enseignant peut décider de changer le lien, ce qui rendra le précédent
+                invalide.<br /> Une promotion ouverte peut aussi être rejointe sans lien par n’importe quel utilisateur
+                depuis son espace de travail.
+            </p>
+            <div class="card" id="invite-link-card">
+                <label for="invite-link" class="accessibility-label">Lien d'invitation de la promotion :</label>
+                <input id="link-input" readonly value="https://natbraille-classrooms.fr/{{ promotionData.link }}" type="text" name="invite-link"
+                       id="invite-link" class="form-input" />
+                <button class="button" onclick="copyLinkToClipboard(event)">Copier le lien</button>
+            </div>
+        </div>
+        <div id="row-1">
+            <button id="t1" class="button">Affecter un ou des exercice(s) à la promotion</button>
+            <button class="button">Changer le nom ou la visibilité de la promotion</button>
+        </div>
+        <div id="row-2">
+            <button class="button">Quitter la promotion</button>
+        </div>
+    </div>
+
+    <div class="card" id="exercises">
+        <h1 class="title-1">Exercices assignés à la promotion</h1>
+        <div id="exercises-row-1">
+            <label class="accessibility-label" for="exercise-research">Rechercher le titre de l'exercice :</label>
+            <input name="exercise-research" id="exercise-research" class="form-input" type="text"
+                   placeholder="Rechercher le titre de l'exercice ici...">
+            <a class="button">Tri par dates d'affectation croissantes</a>
+            <a class="button">Tri par dates d'affectation décroissantes</a>
+        </div>
+        <div class="card" id="exercises-row-2">
+            <div class="card">
+                <p>Braille abrégé avancé, affecté le 12/05/2020</p>
+                <a class="button">Désaffecter</a>
+                <a class="button">J'y vais</a>
+            </div>
+            <div class="card">
+                <p>Transcription de Voltaire, affecté le 11/05/2020</p>
+                <a class="button">Désaffecter</a>
+                <a class="button">J'y vais</a>
+            </div>
+            <div class="card">
+                <p>Les erreurs à éviter, affecté le 09/04/2020</p>
+                <a class="button">Désaffecter</a>
+                <a class="button">J'y vais</a>
+            </div>
+            <div class="card">
+                <p>Les erreurs à éviter, affecté le 09/04/2020</p>
+                <a class="button">Désaffecter</a>
+                <a class="button">J'y vais</a>
+            </div>
+            <div class="card">
+                <p>Les erreurs à éviter, affecté le 09/04/2020</p>
+                <a class="button">Désaffecter</a>
+                <a class="button">J'y vais</a>
+            </div>
+            <div class="card">
+                <p>Les erreurs à éviter, affecté le 09/04/2020</p>
+                <a class="button">Désaffecter</a>
+                <a class="button">J'y vais</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" id="members">
+        <h1 class="title-1">Membres de la promotion</h1>
+        <div id="members-row-1">
+            <label class="accessibility-label" for="member-research">Rechercher le nom d'un membre :</label>
+            <input name="promotion-research" id="member-research" class="form-input" type="text"
+                   placeholder="Rechercher le nom d'un membre..." />
+            <a class="button">Tri par dates d'arrivée croissantes</a>
+            <a class="button">Tri par dates d'arrivée décroissantes</a>
+        </div>
+        <div class="card" id="members-row-2">
+            <div class="card">
+                <p>Lina Zouiri</p>
+                <!-- TODO : dans twig, le for du label, son contenu et l'id du select dépendra du membre, dynamiquement -->
+                <label class="accessibility-label" for="role-lina">Rôle du membre Lina de la promotion :</label>
+                <select id="role-lina" class="select" disabled>
+                    <!-- disabled (si apprenant sur la page) -->
+                    <option value="teacher">Enseignant</option>
+                    <option selected value="student">Apprenant</option>
+                </select>
+                <a class="button">Renvoyer de la promotion</a>
+            </div>
+            <div class="card">
+                <p>Bruno Mascret</p>
+                <label class="accessibility-label" for="role-bruno">Rôle du membre Bruno de la promotion :</label>
+                <select id="role-bruno" class="select">
+                    <option selected value="teacher">Enseignant</option>
+                    <option value="student">Apprenant</option>
+                </select>
+                <a class="button">Renvoyer de la promotion</a>
+            </div>
+            <div class="card">
+                <p>Daniel Blasko</p>
+                <label class="accessibility-label" for="role-daniel">Rôle du membre Daniel de la promotion :</label>
+                <select id="role-daniel" class="select">
+                    <option value="teacher">Enseignant</option>
+                    <option selected value="student">Apprenant</option>
+                </select>
+                <a class="button">Renvoyer de la promotion</a>
+            </div>
+            <div class="card">
+                <p>Jean Dupont</p>
+                <label class="accessibility-label" for="role-jean1">Rôle du membre Jean1 de la promotion :</label>
+                <select id="role-jean1" class="select">
+                    <option selected value="teacher">Enseignant</option>
+                    <option value="student">Apprenant</option>
+                </select>
+                <a class="button">Renvoyer de la promotion</a>
+            </div>
+            <div class="card">
+                <p>Jean Dupont</p>
+                <label class="accessibility-label" for="role-jean2">Rôle du membre Jean2 de la promotion :</label>
+                <select id="role-jean2" class="select">
+                    <option value="teacher">Enseignant</option>
+                    <option selected value="student">Apprenant</option>
+                </select>
+                <a class="button">Renvoyer de la promotion</a>
+            </div>
+            <div class="card">
+                <p>Jean Dupont</p>
+                <label class="accessibility-label" for="role-jean3">Rôle du membre Jean3 de la promotion :</label>
+                <select id="role-jean3" class="select">
+                    <option value="teacher">Enseignant</option>
+                    <option selected value="student">Apprenant</option>
+                </select>
+                <a class="button">Renvoyer de la promotion</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
