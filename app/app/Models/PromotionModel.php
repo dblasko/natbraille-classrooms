@@ -77,4 +77,36 @@ class PromotionModel extends Model {
         }
         return $promotions;
     }
+
+    public function isValidLink($promoLink) {
+        $promoData = $this->asArray()
+            ->where(['inviteLink' => $promoLink])
+            ->first();
+
+        return ($promoData != null);
+    }
+
+    public function isUserMemberOfPromo($userMail, $promoId) {
+        $query = $this->db->query("SELECT * FROM promotionmemberships WHERE promotionId = ? AND memberUserMail = ?", array($promoId, $userMail));
+        if ($query != null) {
+            return ($query->getFirstRow() != null);
+        }
+        return false;
+    }
+
+    public function addUserToPromotion(UserEntity $user, $promoLink) {
+        $promoData = $this->asArray()
+            ->where(['inviteLink' => $promoLink])
+            ->first();
+
+        if ($this->isUserMemberOfPromo($user->getMail(), $promoData['id'])) return false; // already member
+
+        $this->db->query("INSERT INTO promotionmemberships VALUES (?,?,?,?)", array(
+            $promoData['id'],
+            $user->getMail(),
+            date("Y-m-d H:i:s"),
+            ROLE_STUDENT, // default when joined
+        ));
+        return true;
+    }
 }

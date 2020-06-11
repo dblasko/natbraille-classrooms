@@ -130,6 +130,7 @@ class Users extends BaseController {
                 session()->set('loggedIn', true);
                 session()->set('user', $userDbData);
                 $data = $this->prepareLoggedInUserData($userDbData);
+                if (session('wantsToJoin') != null) $this->redirToJoinPromotion();
             }
         }
 
@@ -163,6 +164,12 @@ class Users extends BaseController {
             $user->read($notification); 
         }
         header("Location: /");
+        exit();
+    }
+
+    protected function redirToJoinPromotion() {
+        // User has been logged in, now he can join the promotion he's been invited to
+        header("Location: /promotions/join/".session('wantsToJoin'));
         exit();
     }
 }
