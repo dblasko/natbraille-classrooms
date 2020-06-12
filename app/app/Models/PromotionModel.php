@@ -112,6 +112,14 @@ class PromotionModel extends Model {
         return false;
     }
 
+    public function isUserTeacherOfPromo($userMail, $promoId) {
+        $query = $this->db->query("SELECT * FROM promotionmemberships WHERE promotionId = ? AND memberUserMail = ? AND ROLE = '".ROLE_TEACHER."'", array($promoId, $userMail));
+        if ($query != null) {
+            return ($query->getFirstRow() != null);
+        }
+        return false;
+    }
+
     public function addUserToPromotion(UserEntity $user, $promoLink) {
         $promoData = $this->asArray()
             ->where(['inviteLink' => $promoLink])

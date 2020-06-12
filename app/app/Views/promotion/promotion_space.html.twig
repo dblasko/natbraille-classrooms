@@ -10,6 +10,11 @@
 {% endblock %}
 
 {% block content %}
+    {% if invalid_form_input %}
+        {{ include('templates/input_error_bar.html.twig') }}
+    {% elseif title %}
+        {{ include('templates/info_message_bar.html.twig') }}
+    {% endif %}
     <div class="card" id="promotion-space">
         <h1 class="title-1">Espace de la promotion {{ promotionData.promotion.name }}</h1>
         <div class="card">

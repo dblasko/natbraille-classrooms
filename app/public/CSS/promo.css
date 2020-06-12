@@ -2,9 +2,12 @@ body>div {
     margin: 0vh 1vw;
 }
 
+html  {
+    padding-top: 14vh;
+}
+
 #promotion-space {
     padding: 1vh 1.7vw;
-    margin-top: 14vh;
     margin-bottom: 4vh;
     text-align: center;
 }
@@ -137,4 +140,9 @@ body>div {
 
 #exercises-row-2 p, #members-row-2 p {
     flex-grow: 4;
+}
+
+
+#input-error-bar, #info-message-bar {
+    margin-bottom: 2vh;
 }

@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 
+use App\Models\ExerciseAssignmentModel;
 use App\Models\PromotionModel;
 
 class Promotions extends BaseController {
@@ -32,7 +33,7 @@ class Promotions extends BaseController {
                 $redir = 'home/workspace.html';
             } else { // user is logged in, the promotion exists and he's a member of it
                 $promotionData['promotion'] = $model->getPromotionEntity($promotionId);
-                $promotionData['isCurrentUserTeacher'] = in_array(session('user'), $promotionData['promotion']->getExerciseAssigners()); // TODO : vérifier si marche
+                $promotionData['isCurrentUserTeacher'] = in_array(session('user'), $promotionData['promotion']->getExerciseAssigners());
                 $redir = '/promotion/promotion_space.html';
             }
         }
@@ -126,6 +127,54 @@ class Promotions extends BaseController {
         $twig = twig_instance();
         $twig->display($redir, [
             'sender_form' => 'de consultation d\'une promotion',
+            'invalid_form_input' => $invalid_form_input,
+            'title' => isset($title)? $title : null,
+            'msg' => isset($msg)? $msg : null,
+            'session' => session(),
+            'workspaceData' => isset($data)? $data : null,
+            'promotionData' => isset($promotionData)? $promotionData : null,
+        ]);
+    }
+
+    public function unassign($affectationId=null) {
+        // check co, id valide à une affectation (get la promo), membre, rôle enseignant sur la promo
+        // Puis appel modèle unassign et préparer msg et recharcher espace de la promo avec info bien passé
+        // TODO : check si marche bien (cas erreur aussi, déco, pas prof de la promo, refresh...)
+
+        $invalid_form_input = false;
+        $model = new PromotionModel();
+        $exoModel = new ExerciseAssignmentModel();
+
+        if (!session('loggedIn')) {
+            $invalid_form_input = true;
+            $msg = 'Vous devez être connecté pour désaffecter un exercice.';
+            $redir = 'home/logged_out_content.html';
+        } else if ($affectationId === null || !$exoModel->isValidAffectationId($affectationId)) {
+            $invalid_form_input = true;
+            $msg = 'L\'exercice que vous essayez de désaffecter n\'existe pas.';
+            $data = Users::prepareLoggedInUserData(session('user'));
+            $redir = 'home/workspace.html';
+        } else {
+            $promoId = $exoModel->getPromotionIdThatExerciseIsAffectedTo($affectationId);
+            if (!$model->isUserTeacherOfPromo(session('user')->getMail(), $promoId)) {
+                $invalid_form_input = true;
+                $msg = 'Vous n\'êtes pas un enseignant de la promotion à laquelle vous avez essayé de désaffecter un exercice.';
+                $data = Users::prepareLoggedInUserData(session('user'));
+                $redir = 'home/workspace.html';
+            } else { // user is logged in, the promotion exists and he's a teacher of it
+                $exoModel->unassign($affectationId);
+                $title = 'Exercice désaffecté de la promotion.';
+                $msg = 'Il n\'apparaîtra plus dans la liste des exercices de la promotion.';
+
+                $promotionData['promotion'] = $model->getPromotionEntity($promoId);
+                $promotionData['isCurrentUserTeacher'] = in_array(session('user'), $promotionData['promotion']->getExerciseAssigners());
+                $redir = 'promotion/promotion_space.html';
+            }
+        }
+
+        $twig = twig_instance();
+        $twig->display($redir, [
+            'sender_form' => 'de désaffectation d\'un exercice à promotion',
             'invalid_form_input' => $invalid_form_input,
             'title' => isset($title)? $title : null,
             'msg' => isset($msg)? $msg : null,

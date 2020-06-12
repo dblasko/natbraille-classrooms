@@ -67,4 +67,22 @@ class ExerciseAssignmentModel extends Model {
         }
         return $exerciseAssignations;
     }
+
+    public function unassign($assignId) {
+        $this->delete($assignId);
+    }
+
+    public function isValidAffectationId($assignId) {
+        $affectData = $this->asArray()
+            ->where(['id' => $assignId])
+            ->first();
+
+        return ($affectData != null);
+    }
+
+    public function getPromotionIDThatExerciseIsAffectedTo($assignId) {
+        return $this->asArray()
+            ->where(['id' => $assignId])
+            ->first()['idPromotion'];
+    }
 }
