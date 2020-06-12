@@ -48,14 +48,15 @@
             <a class="button">Tri par dates d'affectation décroissantes</a>
         </div>
         <div class="card" id="exercises-row-2">
-            <!-- todo : for twig & dynamic data, hrefs...-->
-            <div class="card">
-                <p>Braille abrégé avancé, affecté le 12/05/2020</p>
-                {% if promotionData.isCurrentUserTeacher %}
-                    <a class="button">Désaffecter</a>
-                {% endif %}
-                <a class="button">J'y vais</a> <!-- aura lien diff ou vue diff en fonction du rôle... -->
-            </div>
+            {% for exerciseAssignation in promotionData.promotion.exerciseAssignations %}
+                <div class="card">
+                    <p>{{ exerciseAssignation.exercise.name }}, affecté le {{ exerciseAssignation.date }}</p>
+                    {% if promotionData.isCurrentUserTeacher %}
+                        <a class="button" href="/promotions/unassign/{{ exerciseAssignation.id }}">Désaffecter</a> <!-- Todo : bien vérifeir les droits user avant de désaffecter, pas trust le front -->
+                    {% endif %}
+                    <a class="button" href="/exercises/{{ exerciseAssignation.id }}">J'y vais</a> <!-- aura vue diff en fonction du rôle... TODO dans le controleur selon role -->
+                </div>
+            {% endfor %}
         </div>
     </div>
 
