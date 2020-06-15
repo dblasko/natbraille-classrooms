@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet">
     <link href="promo.css" rel="stylesheet">
+    <script type="text/javaScript" src="recherche.js"></script>
     <title>Espace de la promotion [nom]</title>
 </head>
 
@@ -49,7 +50,7 @@
         <h1 class="title-1">Exercices assignés à la promotion</h1>
         <div id="exercises-row-1">
             <label class="accessibility-label" for="exercise-research">Rechercher le titre de l'exercice :</label>
-            <input name="exercise-research" id="exercise-research" class="form-input" type="text"
+            <input name="exercise-research" id="exercise-research" class="form-input" type="text" onchange="search()"
                 placeholder="Rechercher le titre de l'exercice ici...">
             <a class="button">Tri par dates d'affectation croissantes</a>
             <a class="button">Tri par dates d'affectation décroissantes</a>
