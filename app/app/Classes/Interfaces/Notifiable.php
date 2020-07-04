@@ -7,9 +7,7 @@ namespace App\Classes\Interfaces {
     interface Notifiable
     {
         public function getUnreadNotifications();
-
         public function read(NotificationEntity $n);
-
         public function unread(NotificationEntity $n);
     }
 

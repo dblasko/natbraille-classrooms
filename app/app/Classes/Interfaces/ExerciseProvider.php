@@ -6,7 +6,8 @@
     interface ExerciseProvider {
         public function addSubmission(SolutionSubmissionEntity $ss);
         public function getSolverSubmissions(ExerciseSolver $s, ExerciseEntity $e);
-        function getExerciseSubmissions(ExerciseEntity $e); // for getExerciseSummary
+        function getExerciseSubmissions(ExerciseEntity $e);
         public function getExerciseSummary(ExerciseEntity $e);
     }
 }
+

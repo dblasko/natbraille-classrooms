@@ -11,6 +11,8 @@ unset($minPHPVersion);
 // Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
+$config['sess_save_path'] = NULL;
+
 // Location of the Paths config file.
 // This is the line that might need to be changed, depending on your folder structure.
 $pathsPath = realpath(FCPATH . '../app/Config/Paths.php');
