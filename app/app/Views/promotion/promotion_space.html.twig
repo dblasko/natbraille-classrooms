@@ -76,64 +76,33 @@
             <a class="button">Tri par dates d'arrivée décroissantes</a>
         </div>
         <div class="card" id="members-row-2">
-            <div class="card">
-                <!-- todo : for twig & dynamic data, hrefs...-->
-                <p>Lina Zouiri</p>
-                <!-- TODO : dans twig, le for du label, son contenu et l'id du select dépendra du membre, dynamiquement -->
-                <label class="accessibility-label" for="role-lina">Rôle du membre de la promotion Lina :</label>
-                <select {% if promotionData.isCurrentUserTeacher == false %} disabled {% endif %} id="role-lina" class="select"> <!-- TODO : bien vérifier côté backend à la modification que l'user qui demande est co° & prof & données valides, pas faire confiance au front -->
-                    <option value="teacher">Enseignant</option>
-                    <option selected value="student">Apprenant</option>
-                </select>
-                {% if promotionData.isCurrentUserTeacher %}
-                    <a class="button">Renvoyer de la promotion</a>
-                {% endif %}
-            </div>
-            <div class="card">
-                <p>Bruno Mascret</p>
-                <label class="accessibility-label" for="role-bruno">Rôle du membre Bruno de la promotion :</label>
-                <select id="role-bruno" class="select">
-                    <option selected value="teacher">Enseignant</option>
-                    <option value="student">Apprenant</option>
-                </select>
-                <a class="button">Renvoyer de la promotion</a>
-            </div>
-            <div class="card">
-                <p>Daniel Blasko</p>
-                <label class="accessibility-label" for="role-daniel">Rôle du membre Daniel de la promotion :</label>
-                <select id="role-daniel" class="select">
-                    <option value="teacher">Enseignant</option>
-                    <option selected value="student">Apprenant</option>
-                </select>
-                <a class="button">Renvoyer de la promotion</a>
-            </div>
-            <div class="card">
-                <p>Jean Dupont</p>
-                <label class="accessibility-label" for="role-jean1">Rôle du membre Jean1 de la promotion :</label>
-                <select id="role-jean1" class="select">
-                    <option selected value="teacher">Enseignant</option>
-                    <option value="student">Apprenant</option>
-                </select>
-                <a class="button">Renvoyer de la promotion</a>
-            </div>
-            <div class="card">
-                <p>Jean Dupont</p>
-                <label class="accessibility-label" for="role-jean2">Rôle du membre Jean2 de la promotion :</label>
-                <select id="role-jean2" class="select">
-                    <option value="teacher">Enseignant</option>
-                    <option selected value="student">Apprenant</option>
-                </select>
-                <a class="button">Renvoyer de la promotion</a>
-            </div>
-            <div class="card">
-                <p>Jean Dupont</p>
-                <label class="accessibility-label" for="role-jean3">Rôle du membre Jean3 de la promotion :</label>
-                <select id="role-jean3" class="select">
-                    <option value="teacher">Enseignant</option>
-                    <option selected value="student">Apprenant</option>
-                </select>
-                <a class="button">Renvoyer de la promotion</a>
-            </div>
+            {% for teacher in promotionData.promotion.exerciseAssigners %}
+                <div class="card">
+                    <p>{{ teacher.firstName }} {{ teacher.name }}</p>
+                    <label class="accessibility-label" for="role-{{ teacher.firstName }}-{{ teacher.name }}">Rôle du membre de la promotion {{ teacher.firstName }} :</label>
+                    <select {% if promotionData.isCurrentUserTeacher == false %} disabled {% endif %} id="role-{{ teacher.firstName }}-{{ teacher.name }}" class="select"> <!-- TODO : bien vérifier côté backend à la modification que l'user qui demande est co° & prof & données valides, pas faire confiance au front -->
+                        <option selected value="teacher">Enseignant</option>
+                        <option value="student">Apprenant</option>
+                    </select>
+                    {% if promotionData.isCurrentUserTeacher %}
+                        <a class="button">Renvoyer de la promotion</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            {% for pupil in promotionData.promotion.exerciseSolvers %}
+                <div class="card">
+                    <p>{{ pupil.firstName }} {{ pupil.name }}</p>
+                    <label class="accessibility-label" for="role-{{ pupil.firstName }}-{{ pupil.name }}">Rôle du membre de la promotion {{ pupil.firstName }} :</label>
+                    <select {% if promotionData.isCurrentUserTeacher == false %} disabled {% endif %} id="role-{{ pupil.firstName }}-{{ pupil.name }}" class="select"> <!-- TODO : bien vérifier côté backend à la modification que l'user qui demande est co° & prof & données valides, pas faire confiance au front -->
+                        <option value="teacher">Enseignant</option>
+                        <option selected value="student">Apprenant</option>
+                    </select>
+                    {% if promotionData.isCurrentUserTeacher %}
+                        <a class="button">Renvoyer de la promotion</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
