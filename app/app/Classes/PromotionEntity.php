@@ -122,6 +122,10 @@ namespace App\Classes {
             $this->exerciseAssignations = $exerciseAssignations;
         }
 
+        public function getPublicLink() {
+            return site_url('promotions/join/'.$this->link);
+        }
+
         /**
          * @return mixed
          */

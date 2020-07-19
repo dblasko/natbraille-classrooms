@@ -28,7 +28,7 @@
             </p>
             <div class="card" id="invite-link-card">
                 <label for="invite-link" class="accessibility-label">Lien d'invitation de la promotion :</label>
-                <input id="link-input" readonly value="https://natbraille-classrooms.fr/{{ promotionData.promotion.link }}" type="text" name="invite-link"
+                <input id="link-input" readonly value="{{ promotionData.promotion.publicLink }}" type="text" name="invite-link"
                        id="invite-link" class="form-input" />
                 <button class="button" onclick="copyLinkToClipboard(event)">Copier le lien</button>
             </div>
