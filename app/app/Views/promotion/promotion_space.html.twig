@@ -4,6 +4,8 @@
     <link href="/CSS/promo.css" rel="stylesheet">
     <script src="/Scripts/copyToClipboard.js" defer async></script>
     <script src="/Scripts/search.js" defer async></script>
+    <script src="/Scripts/promotionSpace.js" defer async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 {% endblock %}
 
 {% block title %}
@@ -17,7 +19,7 @@
         {{ include('templates/info_message_bar.html.twig') }}
     {% endif %}
     <div class="card" id="promotion-space">
-        <h1 class="title-1">Espace de la promotion {{ promotionData.promotion.name }}</h1>
+        <h1 class="title-1" id="{{ promotionData.promotion.id }}">Espace de la promotion {{ promotionData.promotion.name }}</h1>
         <div class="card">
             <h2 class="title-2">Lien d'invitation</h2>
             <p class="helper-text">
@@ -80,9 +82,9 @@
                 <div class="card">
                     <p>{{ teacher.firstName }} {{ teacher.name }}</p>
                     <label class="accessibility-label" for="role-{{ teacher.firstName }}-{{ teacher.name }}">Rôle du membre de la promotion {{ teacher.firstName }} :</label>
-                    <select {% if promotionData.isCurrentUserTeacher == false %} disabled {% endif %} id="role-{{ teacher.firstName }}-{{ teacher.name }}" class="select"> <!-- TODO : bien vérifier côté backend à la modification que l'user qui demande est co° & prof & données valides, pas faire confiance au front -->
-                        <option selected value="teacher">Enseignant</option>
-                        <option value="student">Apprenant</option>
+                    <select {% if promotionData.isCurrentUserTeacher == false %} disabled {% endif %} id="role-{{ teacher.firstName }}-{{ teacher.name }}" class="select" onchange="changeRole(event)">
+                        <option selected value="ENSEIGNANT">Enseignant</option>
+                        <option value="APPRENANT">Apprenant</option>
                     </select>
                     {% if promotionData.isCurrentUserTeacher %}
                         <a class="button">Renvoyer de la promotion</a>
@@ -94,9 +96,9 @@
                 <div class="card">
                     <p>{{ pupil.firstName }} {{ pupil.name }}</p>
                     <label class="accessibility-label" for="role-{{ pupil.firstName }}-{{ pupil.name }}">Rôle du membre de la promotion {{ pupil.firstName }} :</label>
-                    <select {% if promotionData.isCurrentUserTeacher == false %} disabled {% endif %} id="role-{{ pupil.firstName }}-{{ pupil.name }}" class="select"> <!-- TODO : bien vérifier côté backend à la modification que l'user qui demande est co° & prof & données valides, pas faire confiance au front -->
-                        <option value="teacher">Enseignant</option>
-                        <option selected value="student">Apprenant</option>
+                    <select {% if promotionData.isCurrentUserTeacher == false %} disabled {% endif %} id="role-{{ pupil.firstName }}-{{ pupil.name }}" class="select" onchange="changeRole(event)"> <!-- TODO : bien vérifier côté backend à la modification que l'user qui demande est co° & prof & données valides, pas faire confiance au front -->
+                        <option value="ENSEIGNANT">Enseignant</option>
+                        <option selected value="APPRENANT">Apprenant</option>
                     </select>
                     {% if promotionData.isCurrentUserTeacher %}
                         <a class="button">Renvoyer de la promotion</a>

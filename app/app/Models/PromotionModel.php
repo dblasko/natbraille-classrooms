@@ -142,4 +142,11 @@ class PromotionModel extends Model {
         $this->db->query("DELETE FROM promotionmemberships WHERE promotionId = ? AND memberUserMail = ?", array($promoId, $user->getMail()));
         return true;
     }
+
+    public function changeUserRole(UserEntity $user, $promoId, $wantedRole) {
+        if (!$this->isUserMemberOfPromo($user->getMail(), $promoId)) return false;
+
+        $this->db->query("UPDATE promotionmemberships SET role = ? WHERE promotionId = ? AND memberUserMail = ?", array($wantedRole, $promoId, $user->getMail()));
+        return true;
+    }
 }

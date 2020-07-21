@@ -3,6 +3,7 @@
 
 use App\Models\ExerciseAssignmentModel;
 use App\Models\PromotionModel;
+use App\Models\UsersModel;
 
 class Promotions extends BaseController {
 
@@ -182,5 +183,41 @@ class Promotions extends BaseController {
             'workspaceData' => isset($data)? $data : null,
             'promotionData' => isset($promotionData)? $promotionData : null,
         ]);
+    }
+
+    private function httpErrorChangingRole() {
+        header($_SERVER["SERVER_PROTOCOL"] . ' 500 Internal Server Error', true, 500);
+        echo 'Le rôle n\'a pas pu être changé.';
+        exit;
+    }
+
+    public function changeRole() {
+        $promoModel = new PromotionModel();
+        $userModel = new UsersModel();
+
+        $firstName = isset($_POST['firstName'])? $_POST['firstName'] : NULL;
+        $lastName = isset($_POST['lastName'])? $_POST['lastName'] : NULL;
+        $wantedRole = isset($_POST['wantedRole'])? $_POST['wantedRole'] : NULL;
+        $promotionId = isset($_POST['promotionId'])? $_POST['promotionId'] : NULL;
+
+        if ($firstName == NULL || $lastName == NULL || $wantedRole == NULL | $promotionId == NULL) {
+            $userHavingRoleChanged = NULL;
+        } else {
+            $userHavingRoleChanged = $userModel->getUserByNameInPromotion($firstName, $lastName, $promotionId);
+        }
+
+        if (!session('loggedIn') ||     // pas co
+            !$promoModel->isUserTeacherOfPromo(session('user')->getMail(), $promotionId) ||      // pas droit prof
+            $wantedRole !== ROLE_TEACHER && $wantedRole !== ROLE_STUDENT ||   // rôle invalide
+            $userHavingRoleChanged == NULL // pas d'user dans la promo correspondant avec ce first et last name
+        ) {
+            // retourner erreur
+            $this->httpErrorChangingRole();
+        } else { // security checks ok
+            // changer en BD et retourner 200
+            if ($promoModel->changeUserRole($userHavingRoleChanged, $promotionId, $wantedRole)) echo 'Rôle mis à jour.';
+            else $this->httpErrorChangingRole();
+            exit();
+        }
     }
 }

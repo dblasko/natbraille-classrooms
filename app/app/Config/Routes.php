@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/promotions/(:segment)', 'Promotions::viewPromotionSpace/$1');
 $routes->get('/promotions/join/(:segment)', 'Promotions::join/$1');
+$routes->post('/promotions/changeRole', 'Promotions::changeRole');
 
 /**
  * --------------------------------------------------------------------
