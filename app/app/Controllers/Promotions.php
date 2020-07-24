@@ -220,4 +220,60 @@ class Promotions extends BaseController {
             exit();
         }
     }
+
+
+    public function kick($promotionId = NULL, $lastName = NULL, $firstName = NULL) {
+        $promoModel = new PromotionModel();
+        $userModel = new UsersModel();
+        $invalid_form_input = false;
+
+        if ($firstName == NULL || $lastName == NULL || $promotionId == NULL) {
+            $userGettingKicked = NULL;
+        } else {
+            $userGettingKicked = $userModel->getUserByNameInPromotion($firstName, $lastName, $promotionId);
+        }
+
+        if (!session('loggedIn')) {
+            $invalid_form_input = true;
+            $msg = 'Vous devez être connecté pour renvoyer un(e) membre d\' une promotion.';
+            $redir = 'home/logged_out_content.html';
+        } else if ($userGettingKicked == NULL) { // membre pas dans la promo ou promo n'existe pas
+            $invalid_form_input = true;
+            $msg = 'Vous essayez de renvoyer un membre qui n\'existe pas, ou la promotion n\'existe pas.';
+            $userData = Users::prepareLoggedInUserData(session('user'));
+            $redir = 'home/workspace.html';
+        } else if (!$promoModel->isUserTeacherOfPromo(session('user')->getMail(), $promotionId)) {
+            $invalid_form_input = true;
+            $msg = 'Vous n\'êtes pas enseignant(e) de la promotion dont vous essayez de renvoyer un(e) membre.';
+
+            $promotionData['promotion'] = $promoModel->getPromotionEntity($promotionId);
+            $promotionData['isCurrentUserTeacher'] = in_array(session('user'), $promotionData['promotion']->getExerciseAssigners());
+            $redir = 'promotion/promotion_space.html';
+        } else {
+            // test renvoi avec modèle, et en fonction succès ou pas render succès ou pas avec data
+            // => set title + msg pour succès & invalid sera faux, sinon true + que msg + sender_form
+            if ($promoModel->removeUserFromPromotion($userGettingKicked, $promotionId)) {
+                $title = '';
+                $msg = '';
+            } else { // failed
+                $invalid_form_input = true;
+                $msg = 'Le membre n\'a pas pu être renvoyé de la promotion. Veuillez réessayer plus tard.';
+            }
+            $promotionData['promotion'] = $promoModel->getPromotionEntity($promotionId);
+            $promotionData['isCurrentUserTeacher'] = in_array(session('user'), $promotionData['promotion']->getExerciseAssigners());
+            $redir = 'promotion/promotion_space.html';
+        }
+
+        // promo data ou workspace data utilisée selon ce qu'on render
+        $twig = twig_instance();
+        $twig->display($redir, [
+            'sender_form' => 'de renvoi d\'un membre d\'une promotion',
+            'invalid_form_input' => $invalid_form_input,
+            'title' => isset($title)? $title : null,
+            'msg' => isset($msg)? $msg : null,
+            'session' => session(),
+            'workspaceData' => isset($userData)? $userData : null,
+            'promotionData' => isset($promotionData)? $promotionData : null,
+        ]);
+    }
 }

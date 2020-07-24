@@ -87,7 +87,7 @@
                         <option value="APPRENANT">Apprenant</option>
                     </select>
                     {% if promotionData.isCurrentUserTeacher %}
-                        <a class="button">Renvoyer de la promotion</a>
+                        <a class="button" href="/promotions/kick/{{ promotionData.promotion.id }}/{{ teacher.name }}/{{ teacher.firstName }}">Renvoyer de la promotion</a>
                     {% endif %}
                 </div>
             {% endfor %}
@@ -101,7 +101,7 @@
                         <option selected value="APPRENANT">Apprenant</option>
                     </select>
                     {% if promotionData.isCurrentUserTeacher %}
-                        <a class="button">Renvoyer de la promotion</a>
+                        <a class="button" href="/promotions/kick/{{ promotionData.promotion.id }}/{{ pupil.name }}/{{ pupil.firstName }}">Renvoyer de la promotion</a>
                     {% endif %}
                 </div>
             {% endfor %}
