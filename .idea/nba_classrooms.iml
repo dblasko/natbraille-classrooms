@@ -7,6 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/codeigniter4/framework" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/daycry/twig" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/doctrine/instantiator" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/kint-php/kint" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/laminas/laminas-escaper" />
@@ -41,6 +42,7 @@
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/sebastian/version" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/polyfill-ctype" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/theseer/tokenizer" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor/twig/twig" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/webmozart/assert" />
     </content>
     <orderEntry type="inheritedJdk" />

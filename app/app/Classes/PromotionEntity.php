@@ -103,6 +103,23 @@ namespace App\Classes {
             // use getExerciseSubmissions as a helper
         }
 
+
+
+        public function saveNewToDb() {
+            $promoModel = new PromotionModel();
+            return $promoModel->createPromotion(
+                $this->name,
+                $this->isClosedPromotion,
+                $this->link
+            );
+        }
+
+        public function generateInviteLink() {
+            $seed = random_int(0, 99);
+            $encodedName = base64_encode($this->name);
+            $this->link = $encodedName . strval($seed);
+        }
+
         /**
          * PromotionEntity constructor.
          * @param $name

@@ -7,6 +7,20 @@ class PromotionModel extends Model {
     protected $table = 'promotions';
     protected $allowedFields = ['name', 'creationIsoDate', 'isClosedPromotion', 'inviteLink'];
 
+    public function createPromotion($name, $isClosedPromotion, $inviteLink) {
+        $promotionData = [
+            'name' => $name,
+            'creationIsoDate' => date("Y-m-d H:i:s"),
+            'isClosedPromotion' => $isClosedPromotion,
+            'inviteLink' => $inviteLink,
+        ];
+        if(!$this->save($promotionData)) return false;
+        $query = $this->db->query("SELECT * FROM promotions WHERE inviteLink = ?", array($inviteLink));
+        if ($query != null) {
+            return $query->getRowArray(0)['id'];
+        }
+    }
+
     public function getPromotionsMemberOf($user)
     {
         $promotions = [];

@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 
+use App\Classes\PromotionEntity;
 use App\Models\ExerciseAssignmentModel;
 use App\Models\PromotionModel;
 use App\Models\UsersModel;
@@ -280,10 +281,37 @@ class Promotions extends BaseController {
     public function create() {
         $invalid_form_input = false;
 
-        if (!isset($_POST['promotionName'])) { // wants to see the form
+        if (!isset($_POST['createPromoSubmit'])) { // wants to see the form
             $redir = 'promotion/promotion_creation.html';
+        } else { // submitting form
+            $redir = 'home/workspace.html';
+            if (!isset($_POST['promoName']) || !isset($_POST['isClosedPromotion'])) {
+                $invalid_form_input = true;
+                $msg = 'Veuillez renseigner l\'ensemble des champs du formulaire (sauf le fichier CSV).';
+            } else if (!session('loggedIn')) {
+                $invalid_form_input = true;
+                $msg = 'Vous devez être connecté(e) pour créer une promotion.';
+            } else {
+                $name = htmlspecialchars($_POST['promoName']);
+                $isClosedPromotion = ($_POST['isClosedPromotion'] == 1);
+                $promo = new PromotionEntity(-1, $name, null, $isClosedPromotion, null, null, null, null);
+                $promo->generateInviteLink();
+                $promoId = $promo->saveNewToDb();
+                if (!$promoId) {
+                    $invalid_form_input = true;
+                    $msg = 'La promotion n\'a pas pu être crée en base de données. Veuillez réessayer plus tard.';
+                } else { // Make creator member & teacher of that promotion !
+                    $promoModel = new PromotionModel();
+                    $promoModel->addUserToPromotion(session('user'), $promo->getLink());
+                    $promoModel->changeUserRole(session('user'), $promoId, ROLE_TEACHER);
+                    // TODO : handling the CSV should be done here...
+
+                    $title = 'Promotion '.$promo->getName().' créée avec succès.';
+                    $msg = 'Celle-ci apparaîtra dans votre espace de travail, avec la visibilité spécifiée. Vous avez le rôle d\'enseignant au sein de la promotion.';
+                }
+            }
+            $userData = Users::prepareLoggedInUserData(session('user'));
         }
-        // TODO : le reste
 
         $twig = twig_instance();
         $twig->display($redir, [

@@ -33,29 +33,20 @@
                 même si besoin de s'inscrire, puis join auto??? => pas déjà implémenté avec les liens d'inv ??? me semble que si
             -->
         </p>
-        <form method="POST" action="#"> <!-- TODO : action -->
-            <div id="creation">
+        <form method="POST" action="/promotions/create"> <!-- TODO : action -->
+            <div id="creationInputs">
                 <div class="col">
-                    <label class="form-label" for="signinName">Nom de la promotion :</label>
-                    <input class="form-input" type="text" name="signinName" id="signinName">
-                    <label class="form-label" for="signinFirstName">Prénom :</label>
-                    <input class="form-input" type="text" name="signinFirstName" id="signinFirstName">
-                </div>
-                <div class="col">
-                    <label class="form-label" for="signinMail">Adresse mail à lier au compte :</label>
-                    <input class="form-input" type="text" name="signinMail" id="signinMail">
-                    <label class="form-label" for="signinDate">Date de naissance :</label>
-                    <input class="form-input" type="text" name="signinDate" id="signinDate"
-                           placeholder="jj-mm-aaaa">
-                </div>
-                <div class="col">
-                    <label class="form-label" for="signinPwd">Mot de passe souhaité :</label>
-                    <input class="form-input" type="password" name="signinPwd" id="signinPwd">
-                    <label class="form-label" for="signinPwdConfirm">Confirmer le mot de passe :</label>
-                    <input class="form-input" type="password" name="signinPwdConfirm" id="signinPwdConfirm">
+                    <label class="form-label" for="promoName">Nom de la promotion :</label>
+                    <input class="form-input" type="text" name="promoName" id="promoName">
+                    <input checked type="radio" id="1" name="isClosedPromotion" value="1">
+                    <label class="form-label" for="1">Promotion fermée.</label><br>
+                    <input type="radio" id="0" name="isClosedPromotion" value="0">
+                    <label class="form-label" for="0">Promotion ouverte.</label><br>
+                    <label class="form-label" for="members-csv">(facultatif) Fichier CSV des membres invités : </label>
+                    <input disabled id="members-csv" name="members-csv" type="file" accept=".csv" /><br>
                 </div>
             </div>
-            <input type="submit" class="button" id="signinSubmit" value="S'inscrire">
+            <input type="submit" class="button" id="createPromoSubmit" name="createPromoSubmit" value="Créer la promotion">
         </form>
     </div>
 {% endblock %}
