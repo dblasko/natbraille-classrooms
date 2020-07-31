@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+
+{% block additional_stylesheets_and_scripts %}
+    <link href="/CSS/promo_creation.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    Création d'une promotion.
+{% endblock %}
+
+{% block content %}
+    {% if invalid_form_input %}
+        {{ include('templates/input_error_bar.html.twig') }}
+    {% elseif title %}
+        {{ include('templates/info_message_bar.html.twig') }}
+    {% endif %}
+
+    <div class="card" id="sign-in-space">
+        <h1 class="title-1">Formulaire de création d'une promotion.</h1>
+        <p>
+            En créant une promotion, vous aurez automatiquement le rôle d'enseignant pour celle-ci.
+            Une promotion ouverte est visible pour tous dans la liste de promotions ouvertes dans l'espace de travail.
+            Une promotion fermée peut uniquement être rejointe avec le lien d'invitation de celle-ci : il faut alors partager celui-ci
+            avec les autres membres comme les élèves, par mail par exemple.
+        </p>
+        <p>
+            (Bientôt) Que la promotion soit ouverte ou fermée, il est possible de joindre un fichier CSV de membres à inviter : celui-ci doit
+            préciser leurs noms, prénoms et adresses mail. Une invitation à rejoindre la promotion, voire à créer un compte si besoin,
+            leur sera alors automatiquement envoyée.
+            <!--
+                TODO : implémenter, besoin de configurer SMTP + use fonction, cf modèle classes pour les invités !
+                !!! Il faudra vérifier que l'intention d'inscription marche : stocker en sess intention jusqu'à connecté,
+                même si besoin de s'inscrire, puis join auto??? => pas déjà implémenté avec les liens d'inv ??? me semble que si
+            -->
+        </p>
+        <form method="POST" action="#"> <!-- TODO : action -->
+            <div id="creation">
+                <div class="col">
+                    <label class="form-label" for="signinName">Nom de la promotion :</label>
+                    <input class="form-input" type="text" name="signinName" id="signinName">
+                    <label class="form-label" for="signinFirstName">Prénom :</label>
+                    <input class="form-input" type="text" name="signinFirstName" id="signinFirstName">
+                </div>
+                <div class="col">
+                    <label class="form-label" for="signinMail">Adresse mail à lier au compte :</label>
+                    <input class="form-input" type="text" name="signinMail" id="signinMail">
+                    <label class="form-label" for="signinDate">Date de naissance :</label>
+                    <input class="form-input" type="text" name="signinDate" id="signinDate"
+                           placeholder="jj-mm-aaaa">
+                </div>
+                <div class="col">
+                    <label class="form-label" for="signinPwd">Mot de passe souhaité :</label>
+                    <input class="form-input" type="password" name="signinPwd" id="signinPwd">
+                    <label class="form-label" for="signinPwdConfirm">Confirmer le mot de passe :</label>
+                    <input class="form-input" type="password" name="signinPwdConfirm" id="signinPwdConfirm">
+                </div>
+            </div>
+            <input type="submit" class="button" id="signinSubmit" value="S'inscrire">
+        </form>
+    </div>
+{% endblock %}

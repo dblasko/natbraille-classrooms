@@ -276,4 +276,23 @@ class Promotions extends BaseController {
             'promotionData' => isset($promotionData)? $promotionData : null,
         ]);
     }
+
+    public function create() {
+        $invalid_form_input = false;
+
+        if (!isset($_POST['promotionName'])) { // wants to see the form
+            $redir = 'promotion/promotion_creation.html';
+        }
+        // TODO : le reste
+
+        $twig = twig_instance();
+        $twig->display($redir, [
+            'sender_form' => 'de création d\'une promotion',
+            'invalid_form_input' => $invalid_form_input,
+            'title' => isset($title)? $title : null,
+            'msg' => isset($msg)? $msg : null,
+            'session' => session(),
+            'workspaceData' => isset($userData)? $userData : null,
+        ]);
+    }
 }

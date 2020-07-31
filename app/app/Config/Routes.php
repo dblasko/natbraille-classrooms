@@ -31,6 +31,8 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('/promotions/create', 'Promotions::create');
+$routes->post('/promotions/create', 'Promotions::create');
 $routes->get('/promotions/(:segment)', 'Promotions::viewPromotionSpace/$1');
 $routes->get('/promotions/join/(:segment)', 'Promotions::join/$1');
 $routes->post('/promotions/changeRole', 'Promotions::changeRole');

@@ -1,0 +1,19 @@
+body>div {
+    margin: 0vh 1vw;
+}
+
+html  {
+    padding-top: 14vh;
+}
+
+
+#sign-in-space {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#sign-in-space p {
+    text-align: justify;
+    padding: 0vw 5vw 0vw;
+}
