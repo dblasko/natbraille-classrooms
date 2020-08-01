@@ -21,8 +21,42 @@ function changeRole(event) {
         },
         success: function(data) {
             //alert("Record added successfully");
-            console.log(data);
             console.log('Rôle modifié !');
         }
     });
+}
+
+MicroModal.init();
+
+let initialName = document.getElementById('promoName').value;
+let initialIsClosedPromotion = ($("input[type='radio'][name='isClosedPromotion']:checked").val() == 1);
+
+function validateModalChanges(event) {
+    let promotionId = document.getElementsByTagName('h1')[0].id;
+    let modifiedName = document.getElementById('promoName').value;
+    let modifiedIsClosedPromotion = ($("input[type='radio'][name='isClosedPromotion']:checked").val() == 1);
+    // If values haven't changed, no need to call the backend
+    if (initialName === modifiedName && initialIsClosedPromotion === modifiedIsClosedPromotion) MicroModal.close('modal-promo');
+    else {
+        //  * appeler api pour update, req ajax => rep dit succès ou pas !
+        // 	* si succès, fermer (avec .close('id');
+
+        $.ajax({
+            url: '/promotions/update',
+            type: 'POST',
+            data: {promotionId: promotionId, promotionName: modifiedName, modifiedIsClosedPromotion: (modifiedIsClosedPromotion)? 1 : 0 },
+            //dataType: 'json',
+            error: function() {
+                alert('La mise à jour de la promotion a échoué. Veuillez annuler et réessayer plus tard.');
+                // TODO : msg dans la modale ?
+                document.getElementById('promoName').value = initialName;
+                let radioButtonToCheckID = (initialIsClosedPromotion)? '1' : '0';
+                $(radioButtonToCheckID).prop("checked", true);
+            },
+            success: function(data) {
+                console.log('Modifications appliquées !');
+                MicroModal.close('modal-promo');
+            }
+        });
+    }
 }

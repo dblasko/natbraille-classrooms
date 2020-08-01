@@ -2,10 +2,12 @@
 
 {% block additional_stylesheets_and_scripts %}
     <link href="/CSS/promo.css" rel="stylesheet">
+    <link href="/CSS/micromodal.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
     <script src="/Scripts/copyToClipboard.js" defer async></script>
     <script src="/Scripts/search.js" defer async></script>
     <script src="/Scripts/promotionSpace.js" defer async></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 {% endblock %}
 
 {% block title %}
@@ -29,7 +31,7 @@
                 depuis son espace de travail.
             </p>
             <div class="card" id="invite-link-card">
-                <label for="invite-link" class="accessibility-label">Lien d'invitation de la promotion :</label>
+                <label for="invite-link" class="accessibility-label">Lien d'invitation d la promotion :</label>
                 <input id="link-input" readonly value="{{ promotionData.promotion.publicLink }}" type="text" name="invite-link"
                        id="invite-link" class="form-input" />
                 <button class="button" onclick="copyLinkToClipboard(event)">Copier le lien</button>
@@ -38,7 +40,7 @@
         {% if promotionData.isCurrentUserTeacher %}
             <div id="row-1">
                 <button id="t1" class="button">Affecter un ou des exercice(s) à la promotion</button>
-                <button class="button">Changer le nom ou la visibilité de la promotion</button>
+                <button class="button" data-micromodal-trigger="modal-promo">Changer le nom ou la visibilité de la promotion</button>
             </div>
         {% endif %}
         <div id="row-2">
@@ -105,6 +107,33 @@
                     {% endif %}
                 </div>
             {% endfor %}
+        </div>
+    </div>
+    </div>
+
+
+    <div class="modal micromodal-slide" id="modal-promo" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-promo-title">
+                <header class="modal__header">
+                    <h1 class="modal__title" id="modal-promo-title">
+                        Mise à jour de la promotion {{ promotionData.promotion.name }}
+                    </h1>
+                    <button class="modal__close" aria-label="Ferme la modale" data-micromodal-close></button>
+                </header>
+                <main class="modal__content" id="modal-promo-content">
+                    <label class="form-label" for="promoName">Nom de la promotion :</label>
+                    <input class="form-input" type="text" name="promoName" id="promoName" value="{{ promotionData.promotion.name }}">
+                    <input {% if promotionData.promotion.isClosedPromotion %} checked {% endif %} type="radio" id="1" name="isClosedPromotion" value="1">
+                    <label class="form-label" for="1">Promotion fermée.</label><br>
+                    <input {% if promotionData.promotion.isClosedPromotion == false %} checked {% endif %}type="radio" id="0" name="isClosedPromotion" value="0">
+                    <label class="form-label" for="0">Promotion ouverte.</label><br>
+                </main>
+                <footer class="modal__footer">
+                    <button class="button" aria-label="Ferme la fenêtre de dialogue en appliquant les changements." onclick="validateModalChanges(event)">Valider les changements</button>
+                    <button class="button" data-micromodal-close aria-label="Ferme la fenêtre de dialogue sans appliquer les changements.">Annuler les changements</button>
+                </footer>
+            </div>
         </div>
     </div>
 {% endblock %}
