@@ -35,6 +35,7 @@ function validateModalChanges(event) {
     let promotionId = document.getElementsByTagName('h1')[0].id;
     let modifiedName = document.getElementById('promoName').value;
     let modifiedIsClosedPromotion = ($("input[type='radio'][name='isClosedPromotion']:checked").val() == 1);
+    
     // If values haven't changed, no need to call the backend
     if (initialName === modifiedName && initialIsClosedPromotion === modifiedIsClosedPromotion) MicroModal.close('modal-promo');
     else {
@@ -55,6 +56,7 @@ function validateModalChanges(event) {
             },
             success: function(data) {
                 console.log('Modifications appliquées !');
+                document.getElementsByTagName('h1')[0].innerText = "Espace de la promotion " + modifiedName;
                 MicroModal.close('modal-promo');
             }
         });

@@ -163,4 +163,9 @@ class PromotionModel extends Model {
         $this->db->query("UPDATE promotionmemberships SET role = ? WHERE promotionId = ? AND memberUserMail = ?", array($wantedRole, $promoId, $user->getMail()));
         return true;
     }
+
+    public function updatePromo($id, $name, $isClosedPromotion) {
+        $result = $this->db->query("UPDATE promotions SET name = ?, isClosedPromotion = ? WHERE id = ?", array($name, $isClosedPromotion, $id));
+        return (!$result)? false : true;
+    }
 }

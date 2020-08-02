@@ -186,9 +186,9 @@ class Promotions extends BaseController {
         ]);
     }
 
-    private function httpErrorChangingRole() {
+    private function httpError($msg = '') {
         header($_SERVER["SERVER_PROTOCOL"] . ' 500 Internal Server Error', true, 500);
-        echo 'Le rôle n\'a pas pu être changé.';
+        echo $msg;
         exit;
     }
 
@@ -201,7 +201,7 @@ class Promotions extends BaseController {
         $wantedRole = isset($_POST['wantedRole'])? $_POST['wantedRole'] : NULL;
         $promotionId = isset($_POST['promotionId'])? $_POST['promotionId'] : NULL;
 
-        if ($firstName == NULL || $lastName == NULL || $wantedRole == NULL | $promotionId == NULL) {
+        if ($firstName == NULL || $lastName == NULL || $wantedRole == NULL || $promotionId == NULL) {
             $userHavingRoleChanged = NULL;
         } else {
             $userHavingRoleChanged = $userModel->getUserByNameInPromotion($firstName, $lastName, $promotionId);
@@ -213,11 +213,11 @@ class Promotions extends BaseController {
             $userHavingRoleChanged == NULL // pas d'user dans la promo correspondant avec ce first et last name
         ) {
             // retourner erreur
-            $this->httpErrorChangingRole();
+            $this->httpError('Le rôle n\'a pas pu être changé.');
         } else { // security checks ok
             // changer en BD et retourner 200
             if ($promoModel->changeUserRole($userHavingRoleChanged, $promotionId, $wantedRole)) echo 'Rôle mis à jour.';
-            else $this->httpErrorChangingRole();
+            else $this->httpError('Le rôle n\'a pas pu être changé.');
             exit();
         }
     }
@@ -322,5 +322,32 @@ class Promotions extends BaseController {
             'session' => session(),
             'workspaceData' => isset($userData)? $userData : null,
         ]);
+    }
+
+
+    public function update() {
+        $promoModel = new PromotionModel();
+
+        $promotionName = isset($_POST['promotionName'])? $_POST['promotionName'] : NULL;
+        $modifiedIsClosedPromotion = isset($_POST['modifiedIsClosedPromotion'])? $_POST['modifiedIsClosedPromotion'] : NULL;
+        $promotionId = isset($_POST['promotionId'])? $_POST['promotionId'] : NULL;
+
+        if ($promotionName == NULL || $modifiedIsClosedPromotion == NULL || $promotionId == NULL) {
+            $promotionEntity = NULL;
+        } else {
+            $promotionEntity = $promoModel->getPromotionEntity($promotionId); // null if ID doesn't exist
+        }
+
+        if ($promotionEntity == NULL || // id doesn't exist or missing form data
+            !session('loggedIn') ||     // not logged in
+            !$promoModel->isUserTeacherOfPromo(session('user')->getMail(), $promotionId) // not a teacher of the promotion
+        ) {
+            $this->httpError('La promotion n\'a pu être mise à jour.');
+        } else { // security checks ok
+            // update db & return http200
+            if ($promoModel->updatePromo($promotionId, $promotionName, $modifiedIsClosedPromotion)) echo 'Promotion mise à jour.';
+            else $this->httpError('La promotion n\a pu être mise à jour.');
+            exit();
+        }
     }
 }
